@@ -7,24 +7,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\sources\ResourceLoader\ResLoader.h">
+    <ClInclude Include="..\..\sources\ResourceLoader\ResData.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sources\ResourceLoader\ResReader.h">
+    <ClInclude Include="..\..\sources\ResourceLoader\ResLoader.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sources\ResourceLoader\ResType.h">
+    <ClInclude Include="..\..\sources\ResourceLoader\ResReader.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sources\ResourceLoader\ResData.h">
+    <ClInclude Include="..\..\sources\ResourceLoader\ResType.h">
       <Filter>sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\sources\ResourceLoader\ResLoader.cpp">
+    <ClCompile Include="..\..\sources\ResourceLoader\ResLoader.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\ResourceLoader\ResReader.cpp">
+    <ClCompile Include="..\..\sources\ResourceLoader\ResReader.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

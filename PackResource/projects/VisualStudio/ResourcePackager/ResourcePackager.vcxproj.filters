@@ -7,15 +7,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\sources\ResourcePackager\rp_main.cpp">
+    <ClCompile Include="..\..\sources\ResourcePackager\rp_main.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\ResourcePackager\rp_ResPackager.cpp">
+    <ClCompile Include="..\..\sources\ResourcePackager\rp_ResPackager.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\sources\ResourcePackager\rp_ResPackager.h">
+    <ClInclude Include="..\..\sources\ResourcePackager\rp_ResPackager.h">
       <Filter>sources</Filter>
     </ClInclude>
   </ItemGroup>

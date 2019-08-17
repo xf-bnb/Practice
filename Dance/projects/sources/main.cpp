@@ -91,7 +91,7 @@ std::vector<action_type> parse_step(const std::string& s)
 
 int main()
 {
-	std::ifstream fin("step.txt", std::ios::in);
+	std::ifstream fin("../resources/step.txt", std::ios::in);
 	std::istreambuf_iterator<char> beg(fin), end;
 	std::string step_text(beg, end);
 	fin.close();

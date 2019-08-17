@@ -7,21 +7,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\sources\ResourceTest\rt_main.cpp">
+    <ClCompile Include="..\..\sources\ResourceTest\rt_main.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\ResourceTest\rt_ResTest.cpp">
+    <ClCompile Include="..\..\sources\ResourceTest\rt_ResTest.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\ResourceTest\rt_TestLog.cpp">
+    <ClCompile Include="..\..\sources\ResourceTest\rt_TestLog.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\sources\ResourceTest\rt_ResTest.h">
+    <ClInclude Include="..\..\sources\ResourceTest\rt_ResTest.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sources\ResourceTest\rt_TestLog.h">
+    <ClInclude Include="..\..\sources\ResourceTest\rt_TestLog.h">
       <Filter>sources</Filter>
     </ClInclude>
   </ItemGroup>
