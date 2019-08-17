@@ -1,11 +1,11 @@
 
-CompileCmd='g++-8 -std=c++17'
+CompileCmd='g++ -std=c++17'
 
 Config=Debug
 ProjectName=ResourceTest
 RelyOnName=ResourceLoader
-IncludeDir=../../../sources/${RelyOnName}
-SourceDir=../../../sources/${ProjectName}
+IncludeDir=../../sources/${RelyOnName}
+SourceDir=../../sources/${ProjectName}
 OutputDir=../../../output/${ProjectName}/${Config}
 RelyOnDir=../../../output/${RelyOnName}/${Config}
 InterDir=../../../output/${ProjectName}/Intermediate

@@ -1,10 +1,10 @@
 
-CompileCmd='g++-8 -std=c++17'
+CompileCmd='g++ -std=c++17'
 ArchiveCmd=ar
 
 Config=Debug
 ProjectName=ResourceLoader
-SourceDir=../../../sources/${ProjectName}
+SourceDir=../../sources/${ProjectName}
 OutputDir=../../../output/${ProjectName}/${Config}
 InterDir=../../../output/${ProjectName}/Intermediate
 TargetFile=${OutputDir}/lib${ProjectName}.a

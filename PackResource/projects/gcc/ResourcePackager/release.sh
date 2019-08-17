@@ -1,9 +1,9 @@
 
-CompileCmd='g++-8 -std=c++17'
+CompileCmd='g++ -std=c++17'
 
 Config=Release
 ProjectName=ResourcePackager
-SourceDir=../../../sources/${ProjectName}
+SourceDir=../../sources/${ProjectName}
 OutputDir=../../../output/${ProjectName}/${Config}
 InterDir=../../../output/${ProjectName}/Intermediate
 TargetFile=${OutputDir}/${ProjectName}
