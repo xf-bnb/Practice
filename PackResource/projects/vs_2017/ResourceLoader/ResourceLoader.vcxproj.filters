@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="sources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\sources\ResourceLoader\ResLoader.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\ResourceLoader\ResReader.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\ResourceLoader\ResType.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\ResourceLoader\ResData.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\sources\ResourceLoader\ResLoader.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\ResourceLoader\ResReader.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
