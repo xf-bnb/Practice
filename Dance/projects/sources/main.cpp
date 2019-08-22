@@ -111,22 +111,22 @@ std::vector<action_type> parse_step(const std::string& s)
         {
             action_type at(s.substr(start));
             if (action_type::type::at_partner == at.getType())
-                actions.push_back(at);
-            else
                 partners.push_back(at);
+            else
+                actions.push_back(at);
             break;
         }
 
         action_type at(s.substr(start, pos - start));
         if (action_type::type::at_partner == at.getType())
-            actions.push_back(at);
-        else
             partners.push_back(at);
+        else
+            actions.push_back(at);
 
         start = pos + 1;
     }
 
-    std::cout << partners.size() << std::endl;
+    std::cout << "partner size: " << partners.size() << std::endl;
 
     for (auto& at : partners)
         actions.push_back(at);
@@ -143,7 +143,7 @@ int main()
 
     std::vector<action_type> actions = parse_step(step_text);
 
-    std::cout << actions.size() << std::endl;
+    std::cout << "action size: " << actions.size() << std::endl;
 
     char s[length]{ 0 };
     for (int i = 0; i < length; ++i)
@@ -152,24 +152,23 @@ int main()
     time_t t1 = clock();
     for (int i = 0; i < 1; ++i)
     {
-        unsigned int n = actions.size() - 7766;
+        unsigned int n = actions.size() - 2234;
 
         const std::string p("nbdfcpoejgamhilk");
-        const std::string x("lkinbmhjpgofaced");
-           
-        // abcdefghijklmnop
-        // nbdfcpoejgamhilk
+        // const std::string x("lkinbmhjpgofaced");
+		const std::string x("ahgdnbfceijklmop");
+
         for (int i = 0; i < length; ++i) s[i] = x[i];
 
-        // lkinbmhjpgofaced
-        // cknmidebghlajpfo
+        // ahgdnbfceijklmop
+		// ljhnckmibpgofaed
+
+		// abcdefghijklmnop
+		// lkinbmhjpgofaced
         for (unsigned int i = n; i < actions.size(); ++i) actions[i](s);
 
-        // nbdfcpoejgamhilk
-        // abcdefghijklmnop
-
-        // lkinbmhjpgofaced
-        // majibhegkolpndcf
+		// lkinbmhjpgofaced
+		// cknmidebghlajpfo
         // for (unsigned int i = 0; i < n; ++i) actions[i](s);
     }
 
