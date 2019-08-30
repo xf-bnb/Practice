@@ -1,188 +1,91 @@
-#include <string>
 #include <iostream>
-#include <vector>
-#include <functional>
 #include <fstream>
 #include <streambuf>
 #include <time.h>
 
-constexpr int length = 16;
+#include "dance_action.h"
 
-void show(const char(&s)[length])
+constexpr unsigned int dance_number = 1000000000;
+
+inline void show(const char(&s)[length])
 {
     for (char x : s) std::cout << x;
 
     std::cout << std::endl;
 }
 
-void spin(char(&s)[length], int n)
+inline bool is_origin(const char(&s)[length], const char* origin)
 {
-    char t[length]{ 0 };
-    int z = length - n;
-    for (int i = 0; i < z; ++i)
-        t[i] = s[i];
+    for (int i = 0; i < length; ++i)
+        if (s[i] != origin[i])
+            return false;
 
-    for (int i = 0; i < n; ++i)
-        s[i] = s[z + i];
-
-    for (int i = 0; i < z; ++i)
-        s[n + i] = t[i];
+    return true;
 }
 
-void exchange(char(&s)[length], int a, int b)
+void case1(const std::string& text, char (&s)[length])
 {
-    s[a] ^= s[b] ^= s[a] ^= s[b];
+    dance_action::action_list actions;
+    unsigned int n = dance_action::parse_action(text, actions);
+    std::cout << "parse action size: " << n << std::endl;
+
+    for (auto& action : actions) action(s);
 }
 
-void partner(char(&s)[length], char a, char b)
+void case2(const std::string& text, char (&s)[length])
 {
-    for (char& x : s)
-    {
-        if (x == a)
-            x = b;
-        else if (x == b)
-            x = a;
-    }
+    dance_map dm(text);
+
+    clock_t t1 = clock();
+
+    for (int i = 0; i < dance_number; ++i) dm(s);
+
+    clock_t t2 = clock();
+
+    std::cout << "time: " << t2 - t1 << std::endl;
 }
 
-class action_type
+void case3(const std::string& text, char (&s)[length])
 {
-public:
-    enum type {
-        at_unknow, at_spin, at_exchange, at_partner
-    };
+    dance_action::action_list actions;
+    dance_action::parse_action(text, actions);
 
-    action_type(const std::string& a)
-    {
-        switch (a[0])
-        {
-        case 's':
-        {
-            int n = std::stoi(std::string(a, 1));
-            f = [=](char(&s)[length]) { spin(s, n); };
-            t = at_spin;
-            break;
-        }
-        case 'x':
-        {
-            size_t pos = a.find('/', 1);
-            int m = std::stoi(a.substr(1, pos));
-            int n = std::stoi(a.substr(pos + 1));
-            f = [=](char(&s)[length]) { exchange(s, m, n); };
-            t = at_exchange;
-            break;
-        }
-        case 'p':
-        {
-            f = [=](char(&s)[length]) { partner(s, a[1], a[3]); };
-            t = at_partner;
-            break;
-        }
-        default:
-            f = nullptr;
-            t = at_unknow;
-            break;
-        }
-    }
+    clock_t t1 = clock();
 
-    void operator()(char(&s)[length]) const
-    {
-        if (f != nullptr)
-            f(s);
-    }
+    int n = 1;
+    for (auto& action : actions)
+        action(s);
 
-    unsigned int getType() const { return t; }
+    for (; !is_origin(s, "abcdefghijklmnop"); ++n)
+        for (auto& action : actions)
+            action(s);
 
-private:
-    type t;
-    std::function<void(char(&)[length])> f;
+    for (int i = 0; i < (dance_number % n); ++i)
+        for (auto& action : actions)
+            action(s);
 
-};
+    clock_t t2 = clock();
 
-std::vector<action_type> parse_step(const std::string& s)
-{
-    std::vector<action_type> actions;
-    std::vector<action_type> partners;
-
-    for (size_t start = 0;;)
-    {
-        size_t pos = s.find(',', start);
-        if (pos == std::string::npos)
-        {
-            action_type at(s.substr(start));
-            if (action_type::type::at_partner == at.getType())
-                partners.push_back(at);
-            else
-                actions.push_back(at);
-            break;
-        }
-
-        action_type at(s.substr(start, pos - start));
-        if (action_type::type::at_partner == at.getType())
-            partners.push_back(at);
-        else
-            actions.push_back(at);
-
-        start = pos + 1;
-    }
-
-    std::cout << "partner size: " << partners.size() << std::endl;
-
-    for (auto& at : partners)
-        actions.push_back(at);
-
-    return actions;
+    std::cout << "circle number: " << n << std::endl;
+    std::cout << "time: " << t2 - t1 << std::endl;
 }
 
 int main()
 {
-    std::ifstream fin("../resources/step.txt", std::ios::in);
+    char s[length]{ 0 };
+    for (int i = 0; i < length; ++i) s[i] = 'a' + i;
+    show(s);
+
+    std::ifstream fin("../resources/actions.txt", std::ios::in);
     std::istreambuf_iterator<char> beg(fin), end;
-    std::string step_text(beg, end);
+    std::string action_text(beg, end);
     fin.close();
 
-    std::vector<action_type> actions = parse_step(step_text);
-
-    std::cout << "action size: " << actions.size() << std::endl;
-
-    char s[length]{ 0 };
-    for (int i = 0; i < length; ++i)
-        s[i] = 'a' + i;
-
-    time_t t1 = clock();
-    for (int i = 0; i < 1; ++i)
-    {
-        unsigned int n = actions.size() - 2234;
-
-        const std::string p("nbdfcpoejgamhilk");
-        // const std::string x("lkinbmhjpgofaced");
-		const std::string x("ahgdnbfceijklmop");
-
-        for (int i = 0; i < length; ++i) s[i] = x[i];
-
-        // ahgdnbfceijklmop
-		// ljhnckmibpgofaed
-
-		// abcdefghijklmnop
-		// lkinbmhjpgofaced
-        for (unsigned int i = n; i < actions.size(); ++i) actions[i](s);
-
-		// lkinbmhjpgofaced
-		// cknmidebghlajpfo
-        // for (unsigned int i = 0; i < n; ++i) actions[i](s);
-    }
-
-    time_t t2 = clock();
-
-    std::cout << "time: " << t2 - t1 << std::endl;
+    void (*func[])(const std::string&, char(&)[length]) = { case1, case2, case3 };
+          
+    func[2](action_text, s);
 
     show(s);
 
-    // step: cknmidebghlajpfo
-    // a: hibnladopckjgefm
-    // b: hibnladopckjgefm
-
     return 0;
 }
-
-
