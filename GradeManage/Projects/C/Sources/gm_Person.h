@@ -36,8 +36,8 @@ typedef enum
 
 typedef enum
 {
-    Sex_Man,        // 男
-    Sex_Woman,      // 女
+    Sex_Male,        // 男
+    Sex_Female,      // 女
 
     Sex_Max
 } E_Sex;    // 性别
@@ -46,11 +46,11 @@ typedef enum
 
 typedef enum
 {
-    Sort_LoginID    = 0x0,  // 按用户名
+    Sort_Account    = 0x0,  // 按用户名
     Sort_Name       = 0x1,  // 按姓名
     Sort_Date       = 0x2,  // 按出生日期
     Sort_Score      = 0x3,  // 按分数
-    Sort_Reason     = 0x3,  // 排序条件
+    Sort_Right      = 0x3,  // 排序条件
 
     Sort_Asce       = 0x0,  // 升序
     Sort_Desc       = 0x4,  // 降序
@@ -63,13 +63,13 @@ typedef enum
 
 typedef enum
 {
-    Sift_LoginID    = 0x01, // 按用户名
-    Sift_ByName     = 0x02, // 按姓名
-    Sift_ByDate     = 0x04, // 按出生日期
-    Sift_BySex      = 0x08, // 按性别
-    Sift_ByScore    = 0x10, // 按分数
-    Sift_ByPublic   = 0x20, // 按公开权限
-    Sift_Reason     = 0x3f  // 筛选条件
+    Filter_Account  = 0x01, // 按用户名
+    Filter_ByName   = 0x02, // 按姓名
+    Filter_ByDate   = 0x04, // 按出生日期
+    Filter_BySex    = 0x08, // 按性别
+    Filter_ByScore  = 0x10, // 按分数
+    Filter_ByRight  = 0x20, // 按公开权限
+    Filter_Mask     = 0x3f  // 筛选条件
 }E_SiftType;    // 筛选方式
 
 

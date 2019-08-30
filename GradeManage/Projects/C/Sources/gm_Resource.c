@@ -9,9 +9,9 @@ static MgrRes   g_sMgrRes;
 
 static const char g_strFileName[File_Max][Size_FileName] =
 {
-    "..\\Resource\\String.txt",
-    "..\\Resource\\Admin.dll",
-    "..\\Resource\\Person.dll"
+    "..\\Resources\\String.txt",
+    "..\\Resources\\Admin.dll",
+    "..\\Resources\\Person.dll"
 };  // ÎÄ¼þ³Ø
 
 //-----------------------------------------------------------------------------

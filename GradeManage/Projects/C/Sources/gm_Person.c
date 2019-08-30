@@ -237,24 +237,24 @@ static bool IsEqualSiftData( const person* item, const siftdata* data )
 
     if ( !data ) return true;
 
-    switch ( data->m_eReason & Sift_Reason )
+    switch ( data->m_eReason & Filter_Mask )
     {
-    case Sift_LoginID:
+    case Filter_Account:
         return !StringCompare(item->m_strLoginID, data->m_unData.m_strLoginID, false);
 
-    case Sift_ByName:
+    case Filter_ByName:
         return !StringCompare(item->m_strName, data->m_unData.m_srtName, true);
 
-    case Sift_ByDate:
+    case Filter_ByDate:
         return !StringCompare(item->m_strDate, data->m_unData.m_strDate, true);
 
-    case Sift_BySex:
+    case Filter_BySex:
         return (item->m_eSex == data->m_unData.m_eSex);
 
-    case Sift_ByScore:
+    case Filter_ByScore:
         return (item->m_iScore == data->m_unData.m_iScore);
 
-    case Sift_ByPublic:
+    case Filter_ByRight:
         return (item->m_bPublic == data->m_unData.m_bPublic);
 
     default:
@@ -266,9 +266,9 @@ static bool IsEqualSiftData( const person* item, const siftdata* data )
 
 static int ComparePerson( const person* item1, const person* item2, int eType )
 {
-    switch ( eType & Sort_Reason )
+    switch ( eType & Sort_Right )
     {
-    case Sort_LoginID:
+    case Sort_Account:
         return StringCompare(item1->m_strLoginID, item2->m_strLoginID, false);
 
     case Sort_Name:

@@ -264,7 +264,7 @@ static void MenuSift()
                 InputLoginID(data.m_unData.m_strLoginID);
                 if ( CheckLoginID(data.m_unData.m_strLoginID) )
                 {
-                    data.m_eReason = Sift_LoginID;
+                    data.m_eReason = Filter_Account;
                 } 
                 else
                 {
@@ -275,22 +275,22 @@ static void MenuSift()
             }
 
         case cmdSift_ByName:
-            data.m_eReason = Sift_ByName;
+            data.m_eReason = Filter_ByName;
             InputName(data.m_unData.m_srtName);
             break; 
 
         case cmdSift_ByDate:
-            data.m_eReason = Sift_ByDate;
+            data.m_eReason = Filter_ByDate;
             InputDate(data.m_unData.m_strDate);
             break;
 
         case cmdSift_BySex:
-            data.m_eReason = Sift_BySex;
+            data.m_eReason = Filter_BySex;
             data.m_unData.m_eSex = InputSex();
             break;
 
         case cmdSift_ByScore:
-            data.m_eReason = Sift_ByScore;
+            data.m_eReason = Filter_ByScore;
             data.m_unData.m_iScore = InputScore();
             break;
 
@@ -298,7 +298,7 @@ static void MenuSift()
             {
                 if ( State_LoginAdmin == g_pAppData->m_eState )
                 {
-                    data.m_eReason = Sift_ByPublic;
+                    data.m_eReason = Filter_ByRight;
                     data.m_unData.m_bPublic = InputPublic();
                     break;
                 }
@@ -309,7 +309,7 @@ static void MenuSift()
             break;
         }
 
-        if ( data.m_eReason & Sift_Reason )
+        if ( data.m_eReason & Filter_Mask )
         {
             ShowPerBySift(&data);
         }
@@ -829,7 +829,7 @@ static void InputDate( char* buf )
 static int InputSex()
 {
     char key = 0;
-    int sex = Sex_Man;
+    int sex = Sex_Male;
 
     ShowSeparator(true);
 
@@ -839,13 +839,13 @@ static int InputSex()
     {
         if ('M' == key || 'm' == key)
         {
-            sex = Sex_Man;
+            sex = Sex_Male;
             printf("%c\b", key);
         }
 
         if ('W' == key || 'w' == key)
         {
-            sex = Sex_Woman;
+            sex = Sex_Female;
             printf("%c\b", key);
         }
     }
