@@ -1,4 +1,4 @@
-#include "gm_Include.h"
+ï»¿#include "gm_Include.h"
 
 
 //-----------------------------------------------------------------------------
@@ -7,47 +7,47 @@ static MgrCmd   g_sMgrCmd;
 
 
 //=============================================================================
-// ¾Ö²¿º¯ÊıÉùÃ÷
+// å±€éƒ¨å‡½æ•°å£°æ˜
 //=============================================================================
-static void MenuMain();                 // ´¦ÀíÖ÷²Ëµ¥Âß¼­
-static void MenuPerson();               // ´¦Àí×Ó²Ëµ¥Âß¼­
-static void MenuAdmin();                // ´¦Àí¹ÜÀíÔ±²Ëµ¥
-static void MenuLook();                 // ´¦Àí²é¿´²Ëµ¥Âß¼­
-static void MenuSort();                 // ´¦ÀíÅÅĞò²Ëµ¥Âß¼­
-static void MenuSift();                 // ´¦ÀíÉ¸Ñ¡²Ëµ¥Âß¼­
+static void MenuMain();                 // å¤„ç†ä¸»èœå•é€»è¾‘
+static void MenuPerson();               // å¤„ç†å­èœå•é€»è¾‘
+static void MenuAdmin();                // å¤„ç†ç®¡ç†å‘˜èœå•
+static void MenuLook();                 // å¤„ç†æŸ¥çœ‹èœå•é€»è¾‘
+static void MenuSort();                 // å¤„ç†æ’åºèœå•é€»è¾‘
+static void MenuSift();                 // å¤„ç†ç­›é€‰èœå•é€»è¾‘
 
-static int  CmdLogin();                 // ´¦ÀíÈËÔ±µÇÂ½Âß¼­
-static int  CmdRegister();              // ´¦ÀíÈËÔ±×¢²áÂß¼­
-static int  CmdCancel();                // ´¦Àí×¢Ïú
-static int  CmdDelete();                // ´¦ÀíÉ¾³ı
-static int  ModifyPassword();           // ´¦ÀíĞŞ¸ÄÃÜÂë
-static int  ModifyPublic();             // ´¦ÀíĞŞ¸Ä¹«¿ªÈ¨ÏŞ
-static int  GetCommand();               // »ñÈ¡¼üÅÌÃüÁî
+static int  CmdLogin();                 // å¤„ç†äººå‘˜ç™»é™†é€»è¾‘
+static int  CmdRegister();              // å¤„ç†äººå‘˜æ³¨å†Œé€»è¾‘
+static int  CmdCancel();                // å¤„ç†æ³¨é”€
+static int  CmdDelete();                // å¤„ç†åˆ é™¤
+static int  ModifyPassword();           // å¤„ç†ä¿®æ”¹å¯†ç 
+static int  ModifyPublic();             // å¤„ç†ä¿®æ”¹å…¬å¼€æƒé™
+static int  GetCommand();               // è·å–é”®ç›˜å‘½ä»¤
 
-static int  InputSex();                 // Â¼ÈëĞÔ±ğ
-static int  InputScore();               // Â¼Èë·ÖÊı
-static void InputLoginID(char* buf);    // Â¼ÈëÓÃ»§Ãû
-static void InputName(char* buf);       // Â¼ÈëĞÕÃû
-static void InputDate(char* buf);       // Â¼ÈëÈÕÆÚ
-static bool InputPublic();              // Â¼Èë¹«¿ªÈ¨ÏŞ
-static void InputPassword(char* buf, int eID);  // Â¼ÈëÃÜÂë
+static int  InputSex();                 // å½•å…¥æ€§åˆ«
+static int  InputScore();               // å½•å…¥åˆ†æ•°
+static void InputLoginID(char* buf);    // å½•å…¥ç”¨æˆ·å
+static void InputName(char* buf);       // å½•å…¥å§“å
+static void InputDate(char* buf);       // å½•å…¥æ—¥æœŸ
+static bool InputPublic();              // å½•å…¥å…¬å¼€æƒé™
+static void InputPassword(char* buf, int eID);  // å½•å…¥å¯†ç 
 
-static void ShowTableHead();            // ÏÔÊ¾ÁĞ±íÍ·
-static void ShowScreen(int eID);        // ÏÔÊ¾½çÃæ
-static void ShowMenu(int eMenu);        // ÏÔÊ¾²Ëµ¥
-static void ShowSeparator(bool bHas);   // ÏÔÊ¾·Ö¸ôÏß
-static bool ShowErrorCode(int eCode);   // ÏÔÊ¾´íÎóĞÅÏ¢
-static void ShowPerBySort(int eSort);   // ÅÅĞòÏÔÊ¾½Úµã
-static void ShowPerBySift(const siftdata* data); //É¸Ñ¡ÏÔÊ¾½Úµã
+static void ShowTableHead();            // æ˜¾ç¤ºåˆ—è¡¨å¤´
+static void ShowScreen(int eID);        // æ˜¾ç¤ºç•Œé¢
+static void ShowMenu(int eMenu);        // æ˜¾ç¤ºèœå•
+static void ShowSeparator(bool bHas);   // æ˜¾ç¤ºåˆ†éš”çº¿
+static bool ShowErrorCode(int eCode);   // æ˜¾ç¤ºé”™è¯¯ä¿¡æ¯
+static void ShowPerBySort(int eSort);   // æ’åºæ˜¾ç¤ºèŠ‚ç‚¹
+static void ShowPerBySift(const siftdata* data); //ç­›é€‰æ˜¾ç¤ºèŠ‚ç‚¹
 
-static bool CheckLoginID(const char* str);                          // ¼ì²éÓÃ»§ÃûºÏ·¨ĞÔ
-static bool VerifyLogin(const char* name, const char* pwd);         // ¼ìÑéµÇÂ½Æ¥ÅäÂß¼­
-static bool LoginIdIsExist(const char* strlogin);                   // ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ
-static void ShowPersonList(const person* head);                     // ÏÔÊ¾Ò»¸öÈËÔ±Á´±í
+static bool CheckLoginID(const char* str);                          // æ£€æŸ¥ç”¨æˆ·ååˆæ³•æ€§
+static bool VerifyLogin(const char* name, const char* pwd);         // æ£€éªŒç™»é™†åŒ¹é…é€»è¾‘
+static bool LoginIdIsExist(const char* strlogin);                   // åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
+static void ShowPersonList(const person* head);                     // æ˜¾ç¤ºä¸€ä¸ªäººå‘˜é“¾è¡¨
 
 
 //=============================================================================
-// º¯Êı¶¨Òå
+// å‡½æ•°å®šä¹‰
 //=============================================================================
 //-----------------------------------------------------------------------------
 
@@ -368,7 +368,7 @@ static int CmdLogin()
 
 static int CmdRegister()
 {
-    // ¶¨Òå»º³åÇø
+    // å®šä¹‰ç¼“å†²åŒº
     char loginID[Length_LoginID_Max+1] = { 0 };
     char password[Length_Password_Max+1] = { 0 };
     char password2[Length_Password_Max+1] = { 0 };
@@ -380,7 +380,7 @@ static int CmdRegister()
 
     person* pPer = NULL;
     
-    // Â¼ÈëĞÅÏ¢
+    // å½•å…¥ä¿¡æ¯
     InputLoginID(loginID);
 
     InputPassword(password, str_InputPassword);
@@ -396,18 +396,18 @@ static int CmdRegister()
 
     bPublic = InputPublic();
 
-    // Ğ£ÑéÓÃ»§Ãû
+    // æ ¡éªŒç”¨æˆ·å
     if ( !CheckLoginID(loginID) ) return err_InvalidLoginID;
     if ( LoginIdIsExist(loginID) ) return err_LoginIsExist;
 
-    // Ğ£ÑéÃÜÂë
+    // æ ¡éªŒå¯†ç 
     if ( strlen(password) < Length_Password_Min ) return err_PasswordLess;
     if ( StringCompare(password, password2, true) ) return err_PasswordNoSame;
     
-    // ·ÖÅäÄÚ´æ
+    // åˆ†é…å†…å­˜
     pPer = (person*)malloc(sizeof(person));
 
-    // ³õÊ¼»¯½Úµã
+    // åˆå§‹åŒ–èŠ‚ç‚¹
     if ( !pPer ) return err_MemoryIsLess;
 
     memset(pPer, 0, sizeof(person));
@@ -421,7 +421,7 @@ static int CmdRegister()
     pPer->m_bPublic = bPublic;
     pPer->m_pNext = NULL;
 
-    g_pAppMgr->m_pMgrPer->m_pfAddPer(&g_pAppData->m_pHeadPer, pPer); // ½«½ÚµãÌí¼Óµ½Á´±íÖĞ
+    g_pAppMgr->m_pMgrPer->m_pfAddPer(&g_pAppData->m_pHeadPer, pPer); // å°†èŠ‚ç‚¹æ·»åŠ åˆ°é“¾è¡¨ä¸­
 
     g_pAppData->m_eState = State_LoginPerson;
     
@@ -505,36 +505,36 @@ static int ModifyPassword()
 {
     if ( State_LoginAdmin == g_pAppData->m_eState || State_LoginPerson == g_pAppData->m_eState )
     {
-        // ¶¨Òå»º³åÇø
-        char oldpwd[Length_Password_Max+1] = { 0 }; // ¾ÉÃÜÂë
-        char newpwd[Length_Password_Max+1] = { 0 }; // ĞÂÃÜÂë
-        char twopwd[Length_Password_Max+1] = { 0 }; // È·ÈÏÃÜÂë
+        // å®šä¹‰ç¼“å†²åŒº
+        char oldpwd[Length_Password_Max+1] = { 0 }; // æ—§å¯†ç 
+        char newpwd[Length_Password_Max+1] = { 0 }; // æ–°å¯†ç 
+        char twopwd[Length_Password_Max+1] = { 0 }; // ç¡®è®¤å¯†ç 
 
-        // Â¼ÈëÃÜÂë
+        // å½•å…¥å¯†ç 
         InputPassword(oldpwd, str_InputOldPwd);
         InputPassword(newpwd, str_InputNewPwd);
         InputPassword(twopwd, str_AgainPassword);
 
-        // ¸ù¾İµÇÂ½×´Ì¬Ğ£Ñé¾ÉÃÜÂëÕıÈ·ĞÔ
+        // æ ¹æ®ç™»é™†çŠ¶æ€æ ¡éªŒæ—§å¯†ç æ­£ç¡®æ€§
         if ( State_LoginPerson == g_pAppData->m_eState && StringCompare(oldpwd, g_pAppData->m_pCurPer->m_strPassword, true)
             ||State_LoginAdmin == g_pAppData->m_eState && StringCompare(oldpwd, g_pAppData->m_pCurAdmin->m_strPassword, true) )
         {
             return err_ErrorOldPwd;
         }
         
-        // ĞÂÃÜÂë³¤¶ÈÊÇ·ñºÏ·¨
+        // æ–°å¯†ç é•¿åº¦æ˜¯å¦åˆæ³•
         if ( strlen(newpwd) < Length_Password_Min )
         {
             return err_PasswordLess;
         }
 
-        // ĞÂÃÜÂëºÍÈ·ÈÏÃÜÂëÊÇ·ñÒ»ÖÂ
+        // æ–°å¯†ç å’Œç¡®è®¤å¯†ç æ˜¯å¦ä¸€è‡´
         if ( StringCompare(newpwd, twopwd, true) )
         {
             return err_PasswordNoSame;
         }
 
-        // ¸ù¾İµÇÂ½×´Ì¬½«ĞÂÃÜÂë¶ÔÖ®Ç°µÄÃÜÂë¸²¸Ç
+        // æ ¹æ®ç™»é™†çŠ¶æ€å°†æ–°å¯†ç å¯¹ä¹‹å‰çš„å¯†ç è¦†ç›–
         if ( State_LoginAdmin == g_pAppData->m_eState )
         {
             bnb_strcpy(g_pAppData->m_pCurAdmin->m_strPassword, Length_Password_Max+1, newpwd); 
@@ -573,7 +573,7 @@ static void ShowPerBySort( int eSort )
 
     while ( head )
     {
-        // Èç¹û¹«¿ªÈ¨ÏŞÎªÕæ»òÕß¹ÜÀíÔ±µÇÂ½£¬Ôò²ÎÓëÅÅĞò£¬·ñÔòÌø¹ı¡£
+        // å¦‚æœå…¬å¼€æƒé™ä¸ºçœŸæˆ–è€…ç®¡ç†å‘˜ç™»é™†ï¼Œåˆ™å‚ä¸æ’åºï¼Œå¦åˆ™è·³è¿‡ã€‚
         if ( head->m_bPublic || State_LoginAdmin == g_pAppData->m_eState )
         {
             person* item = (person*)malloc(sizeof(person));
@@ -587,10 +587,10 @@ static void ShowPerBySort( int eSort )
         head = head->m_pNext;
     }
 
-    // ÏÔÊ¾ÅÅĞò½á¹û
+    // æ˜¾ç¤ºæ’åºç»“æœ
     ShowPersonList(newh);
 
-    // ÊÍ·ÅĞÂÁ´±í
+    // é‡Šæ”¾æ–°é“¾è¡¨
     g_pAppMgr->m_pMgrPer->m_pfFreePer(newh);
 }
 
@@ -605,7 +605,7 @@ static void ShowPerBySift( const siftdata* data )
     {
         const person* find = g_pAppMgr->m_pMgrPer->m_pfFindPer(head, data);
 
-        if ( !find ) break; // Èç¹ûÕÒ²»µ½ÔòÉ¸Ñ¡½áÊø
+        if ( !find ) break; // å¦‚æœæ‰¾ä¸åˆ°åˆ™ç­›é€‰ç»“æŸ
 
         item = (person*)malloc(sizeof(person));
 
@@ -614,14 +614,14 @@ static void ShowPerBySift( const siftdata* data )
             g_pAppMgr->m_pMgrPer->m_pfAddPer(&newh, item);
         }
         
-        // ½«ÕÒµ½µÄ½ÚµãµÄÏÂÒ»¸ö½Úµã×÷ÎªÏÂÒ»´ÎËÑË÷µÄ¿ªÊ¼Î»ÖÃ
+        // å°†æ‰¾åˆ°çš„èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ä½œä¸ºä¸‹ä¸€æ¬¡æœç´¢çš„å¼€å§‹ä½ç½®
         head = find->m_pNext;
     }
 
-    // ÏÔÊ¾É¸Ñ¡½á¹û
+    // æ˜¾ç¤ºç­›é€‰ç»“æœ
     ShowPersonList(newh);
 
-    // ÊÍ·ÅĞÂÁ´±í
+    // é‡Šæ”¾æ–°é“¾è¡¨
     g_pAppMgr->m_pMgrPer->m_pfFreePer(newh);
 }
 
@@ -669,9 +669,9 @@ static void ShowScreen( int eID )
 static void ShowMenu( int eMenu )
 {
     int i = 0;
-    int begin = 0, end = 0;     // ¶¨Òå²Ëµ¥×Ö·û´®µÄ¿ªÊ¼ºÍ½áÊøÎ»ÖÃ
+    int begin = 0, end = 0;     // å®šä¹‰èœå•å­—ç¬¦ä¸²çš„å¼€å§‹å’Œç»“æŸä½ç½®
 
-    ShowSeparator(true);        // ´òÓ¡·Ö¸ô·û
+    ShowSeparator(true);        // æ‰“å°åˆ†éš”ç¬¦
 
     switch ( eMenu )
     {
@@ -720,28 +720,28 @@ static void ShowMenu( int eMenu )
         return;
     }
 
-    // ½«¿ªÊ¼ºÍ½áÊøÎ»ÖÃ¼äµÄÎÄ×Ö´òÓ¡³öÀ´
+    // å°†å¼€å§‹å’Œç»“æŸä½ç½®é—´çš„æ–‡å­—æ‰“å°å‡ºæ¥
     for (i = begin; i<=end; ++i)
     {
         const char* str = g_pAppMgr->m_pMgrRes->m_pfGetString(i);
-        printf("%d£º%s\n", i-begin+1, str);
+        printf("%dï¼š%s\n", i-begin+1, str);
     }
     
-    if ( menu_Admin == eMenu )  // Èç¹ûÊÇ¹ÜÀíÔ±²Ëµ¥ÌØÊâ¼ÓÒ»Ïî
+    if ( menu_Admin == eMenu )  // å¦‚æœæ˜¯ç®¡ç†å‘˜èœå•ç‰¹æ®ŠåŠ ä¸€é¡¹
     {
-        printf("%d£º%s\n", cmdAd_Delete, g_pAppMgr->m_pMgrRes->m_pfGetString(str_Delete));
+        printf("%dï¼š%s\n", cmdAd_Delete, g_pAppMgr->m_pMgrRes->m_pfGetString(str_Delete));
     }
 
-    if ( menu_Main == eMenu )   // ½«·µ»Ø»òÕßÍË³ö´òÓ¡ÔÚ×îÏÂÃæ
+    if ( menu_Main == eMenu )   // å°†è¿”å›æˆ–è€…é€€å‡ºæ‰“å°åœ¨æœ€ä¸‹é¢
     {
-        printf("%d£º%s\n", 0, g_pAppMgr->m_pMgrRes->m_pfGetString(str_Exit));
+        printf("%dï¼š%s\n", 0, g_pAppMgr->m_pMgrRes->m_pfGetString(str_Exit));
     } 
     else
     {
-        printf("%d£º%s\n", 0, g_pAppMgr->m_pMgrRes->m_pfGetString(str_Back));
+        printf("%dï¼š%s\n", 0, g_pAppMgr->m_pMgrRes->m_pfGetString(str_Back));
     }
         
-    ShowSeparator(false);       // ´òÓ¡·Ö¸ô·û
+    ShowSeparator(false);       // æ‰“å°åˆ†éš”ç¬¦
 }
 
 //-----------------------------------------------------------------------------
@@ -777,7 +777,7 @@ static void ShowTableHead()
 {
     ShowSeparator(true);
 
-    // ´òÓ¡ÁĞ±íÍ·±êÌâ(ÁÙÊ±´òÓ¡×ö·¨)
+    // æ‰“å°åˆ—è¡¨å¤´æ ‡é¢˜(ä¸´æ—¶æ‰“å°åšæ³•)
     printf("%c LoginID\t%c Name\t\t%c Date\t\t%c Sex\t%c Score\t%c Public%c\n"
         , g_cSymbolBlank
         , g_cSymbolBlank
@@ -906,11 +906,11 @@ static bool InputPublic()
 static bool CheckLoginID( const char* str )
 {
     /*
-     *	ÓÃ»§Ãû¹æÔò£º
-     *  1£º³¤¶È±ØĞëÔÚ3-16Ö®¼ä
-     *  2£ºÊ××Ö·û±ØĞëÎª×ÖÄ¸»òÕßÎªÏÂ»®Ïß
-     *  3£ºÖ»ÓĞÊı×Ö¡¢×ÖÄ¸¡¢ÏÂ»®ÏßÎªºÏ·¨×Ö·û
-     *  4£º²»Çø·Ö´óĞ¡Ğ´
+     *	ç”¨æˆ·åè§„åˆ™ï¼š
+     *  1ï¼šé•¿åº¦å¿…é¡»åœ¨3-16ä¹‹é—´
+     *  2ï¼šé¦–å­—ç¬¦å¿…é¡»ä¸ºå­—æ¯æˆ–è€…ä¸ºä¸‹åˆ’çº¿
+     *  3ï¼šåªæœ‰æ•°å­—ã€å­—æ¯ã€ä¸‹åˆ’çº¿ä¸ºåˆæ³•å­—ç¬¦
+     *  4ï¼šä¸åŒºåˆ†å¤§å°å†™
      */
     size_t len = strlen(str);
 
@@ -933,7 +933,7 @@ static bool VerifyLogin( const char* strlogin, const char* pwd )
     person* pPer    = g_pAppData->m_pHeadPer;
     admin* pAdmin   = g_pAppData->m_pHeadAdmin;
 
-    // ÔÚÈËÔ±Á´±íÖĞÆ¥Åä¸ÃÓÃ»§ÃûºÍÃÜÂë
+    // åœ¨äººå‘˜é“¾è¡¨ä¸­åŒ¹é…è¯¥ç”¨æˆ·åå’Œå¯†ç 
     for ( ; pPer; pPer = pPer->m_pNext)
     {
         if ( !StringCompare(strlogin, pPer->m_strLoginID, false) && !StringCompare(pwd, pPer->m_strPassword, true) )
@@ -945,7 +945,7 @@ static bool VerifyLogin( const char* strlogin, const char* pwd )
         }
     }
 
-    // ÔÚ¹ÜÀíÔ±Á´±íÖĞÆ¥Åä¸ÃÓÃ»§ÃûºÍÃÜÂë
+    // åœ¨ç®¡ç†å‘˜é“¾è¡¨ä¸­åŒ¹é…è¯¥ç”¨æˆ·åå’Œå¯†ç 
     for ( ; pAdmin; pAdmin = pAdmin->m_pNext)
     {
         if ( !StringCompare(strlogin, pAdmin->m_strLoginID, false) && !StringCompare(pwd, pAdmin->m_strPassword, true) )
@@ -967,13 +967,13 @@ static bool LoginIdIsExist( const char* strlogin )
     person* pPer    = g_pAppData->m_pHeadPer;
     admin* pAdmin   = g_pAppData->m_pHeadAdmin;
 
-    // ÔÚÈËÔ±Á´±íÖĞ²éÕÒ¸ÃÓÃ»§Ãû
+    // åœ¨äººå‘˜é“¾è¡¨ä¸­æŸ¥æ‰¾è¯¥ç”¨æˆ·å
     for ( ; pPer; pPer = pPer->m_pNext)
     {
         if ( !StringCompare(strlogin, pPer->m_strLoginID, false) ) return true;
     }
 
-    // ÔÚ¹ÜÀíÔ±Á´±íÖĞ²éÕÒ¸ÃÓÃ»§Ãû
+    // åœ¨ç®¡ç†å‘˜é“¾è¡¨ä¸­æŸ¥æ‰¾è¯¥ç”¨æˆ·å
     for ( ; pAdmin; pAdmin = pAdmin->m_pNext)
     {
         if ( !StringCompare(strlogin, pAdmin->m_strLoginID, false) ) return true;
@@ -988,9 +988,9 @@ static void ShowPersonList( const person* head )
 {
     int count = 0;
 
-    ShowTableHead();        // ´òÓ¡ÁĞ±íÍ·
+    ShowTableHead();        // æ‰“å°åˆ—è¡¨å¤´
 
-    // ´òÓ¡ÏÎ½ÓĞĞ
+    // æ‰“å°è¡”æ¥è¡Œ
     for (count = 0; count<ScreenWidth; ++count)
     {
         if (0 == count || ScreenWidth-1 == count)
@@ -1005,7 +1005,7 @@ static void ShowPersonList( const person* head )
 
     printf("\n");
 
-    // ´òÓ¡ĞÅÏ¢ÁĞ±í
+    // æ‰“å°ä¿¡æ¯åˆ—è¡¨
     for ( count = 0; head; ++count)
     {
         g_pAppMgr->m_pMgrPer->m_pfShowPer(head);
@@ -1013,7 +1013,7 @@ static void ShowPersonList( const person* head )
         head = head->m_pNext;
     }
 
-    ShowSeparator(false);   // ´òÓ¡·Ö¸îÏß
+    ShowSeparator(false);   // æ‰“å°åˆ†å‰²çº¿
 
     printf(g_pAppMgr->m_pMgrRes->m_pfGetString(str_RecordCount), count);
     printf("\n");

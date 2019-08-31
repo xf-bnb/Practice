@@ -1,8 +1,8 @@
-#include "gm_Include.h"
+ï»¿#include "gm_Include.h"
 
 
 //=============================================================================
-// ¶¨ÒåÈ«²¿±äÁ¿
+// å®šä¹‰å…¨éƒ¨å˜é‡
 //=============================================================================
 AppMgr*     g_pAppMgr   = NULL;
 AppData*    g_pAppData  = NULL;
@@ -12,33 +12,33 @@ static AppData  g_sAppData;
 
 
 //=============================================================================
-// ¶¨ÒåÈ«¾Öº¯Êý
+// å®šä¹‰å…¨å±€å‡½æ•°
 //=============================================================================
 //-----------------------------------------------------------------------------
 
 bool Init()
 {
-    // ³õÊ¼»¯È«¾ÖÓ¦ÓÃ³ÌÐòÊý¾Ý
+    // åˆå§‹åŒ–å…¨å±€åº”ç”¨ç¨‹åºæ•°æ®
     g_sAppData.m_pHeadPer   = NULL;
     g_sAppData.m_pHeadAdmin = NULL;
     g_sAppData.m_pCurPer    = NULL;
     g_sAppData.m_pCurAdmin  = NULL;
     g_sAppData.m_eState     = State_LoginOut;
 
-    // ³õÊ¼»¯È«¾ÖÖ¸Õë±äÁ¿
+    // åˆå§‹åŒ–å…¨å±€æŒ‡é’ˆå˜é‡
     g_pAppMgr   = &g_sAppMgr;
     g_pAppData  = &g_sAppData;
     
-    // ³õÊ¼»¯¹ÜÀíÕß
+    // åˆå§‹åŒ–ç®¡ç†è€…
     InitManager();
     
-    // ¼ÓÔØ×ÊÔ´
+    // åŠ è½½èµ„æº
     g_pAppMgr->m_pMgrRes->m_pfLoadString();
 
-    // ¼ÓÔØÊý¾Ý(Á´±í)
+    // åŠ è½½æ•°æ®(é“¾è¡¨)
     g_pAppMgr->m_pMgrRes->m_pfLoadData();
 
-    // ÏÔÊ¾»¶Ó­½çÃæ
+    // æ˜¾ç¤ºæ¬¢è¿Žç•Œé¢
     g_pAppMgr->m_pMgrCmd->m_pfShowScreen(str_Welcom);
     
     return true;
@@ -48,7 +48,7 @@ bool Init()
 
 bool Loop()
 {
-    // ²Ëµ¥ÃüÁîÑ­»·
+    // èœå•å‘½ä»¤å¾ªçŽ¯
     while ( g_pAppData->m_eState > State_None && g_pAppData->m_eState < State_Max )
     {
         g_pAppMgr->m_pMgrCmd->m_pfCommand[g_pAppData->m_eState]();
@@ -61,13 +61,13 @@ bool Loop()
 
 bool Exit()
 {
-    // ±£´æÁ´±íÊý¾Ý
+    // ä¿å­˜é“¾è¡¨æ•°æ®
     g_pAppMgr->m_pMgrRes->m_pfSaveData();
 
-    // ÊÍ·ÅÁ´±íÄÚ´æ
+    // é‡Šæ”¾é“¾è¡¨å†…å­˜
     g_pAppMgr->m_pMgrRes->m_pfFreeData();
 
-    // ÏÔÊ¾ÍË³ö½çÃæ
+    // æ˜¾ç¤ºé€€å‡ºç•Œé¢
     g_pAppMgr->m_pMgrCmd->m_pfShowScreen(str_ThankYou);
 
     return true;

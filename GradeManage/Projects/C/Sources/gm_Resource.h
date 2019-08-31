@@ -1,9 +1,9 @@
-//=============================================================================
-// ÎÄ¼ş£ºgm_Resource.h
-// ÃèÊö£º¶¨Òå×ÊÔ´ÎÄ¼şÀàĞÍ¡¢×Ö·û´®ID£¬×ÊÔ´¹ÜÀíÕß¡£
-// ËµÃ÷£º
-//      ×ÊÔ´¹ÜÀíÕß(MgrPer)Ìá¹©¶Ô×ÊÔ´µÄËùÓĞ²Ù×÷¡£
-//      °üÀ¨£º×Ö·û´®µÄ¼ÓÔØ¡¢»ñÈ¡¡¢ÏÔÊ¾£¬Êı¾İµÄ¼ÓÔØ¡¢±£´æ¡¢ÊÍ·Å¡£
+ï»¿//=============================================================================
+// æ–‡ä»¶ï¼šgm_Resource.h
+// æè¿°ï¼šå®šä¹‰èµ„æºæ–‡ä»¶ç±»å‹ã€å­—ç¬¦ä¸²IDï¼Œèµ„æºç®¡ç†è€…ã€‚
+// è¯´æ˜ï¼š
+//      èµ„æºç®¡ç†è€…(MgrPer)æä¾›å¯¹èµ„æºçš„æ‰€æœ‰æ“ä½œã€‚
+//      åŒ…æ‹¬ï¼šå­—ç¬¦ä¸²çš„åŠ è½½ã€è·å–ã€æ˜¾ç¤ºï¼Œæ•°æ®çš„åŠ è½½ã€ä¿å­˜ã€é‡Šæ”¾ã€‚
 //=============================================================================
 #ifndef _GM_RESOURCE_H
 #define _GM_RESOURCE_H
@@ -12,80 +12,80 @@
 
 typedef enum
 {
-    File_String,                        // ×Ö·û´®ÎÄ¼ş
-    File_Admin,                         // ¹ÜÀíÔ±Êı¾İÎÄ¼ş
-    File_Person,                        // ÈËÔ±ĞÅÏ¢ÎÄ¼ş
+    File_String,                        // å­—ç¬¦ä¸²æ–‡ä»¶
+    File_Admin,                         // ç®¡ç†å‘˜æ•°æ®æ–‡ä»¶
+    File_Person,                        // äººå‘˜ä¿¡æ¯æ–‡ä»¶
 
     File_Max
-}AppFile;   // ÎÄ¼şÀàĞÍÃ¶¾Ù
+}AppFile;   // æ–‡ä»¶ç±»å‹æšä¸¾
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum
 {
-    str_Welcom,                         // »¶Ó­½øÈëĞÅÏ¢¹ÜÀíÏµÍ³£¡
-    str_ThankYou,                       // Ğ»Ğ»Ê¹ÓÃ£¬ÔÙ¼û£¡
-    str_VerifyCancel,                   // (ÌáÊ¾£º×¢ÏúºóÓÃ»§½«±»É¾³ı)ÄúÈ·¶¨Òª×¢ÏúÂğ£¿(y/n)£º
-    str_RecordCount,                    // ¹²%dÌõ¼ÇÂ¼¡£
+    str_Welcom,                         // æ¬¢è¿è¿›å…¥ä¿¡æ¯ç®¡ç†ç³»ç»Ÿï¼
+    str_ThankYou,                       // è°¢è°¢ä½¿ç”¨ï¼Œå†è§ï¼
+    str_VerifyCancel,                   // (æç¤ºï¼šæ³¨é”€åç”¨æˆ·å°†è¢«åˆ é™¤)æ‚¨ç¡®å®šè¦æ³¨é”€å—ï¼Ÿ(y/n)ï¼š
+    str_RecordCount,                    // å…±%dæ¡è®°å½•ã€‚
 
-    str_InputCmd,                       // ÇëÊäÈëÒ»¸öÃüÁî£º
-    str_InputLoginID,                   // ÇëÊäÈëÓÃ»§Ãû£º
-    str_InputPassword,                  // ÇëÊäÈëÃÜÂë£º
-    str_AgainPassword,                  // ÇëÈ·ÈÏÃÜÂë:
-    str_InputName,                      // ÇëÊäÈëĞÕÃû£º
-    str_InputBirth,                     // ÇëÊäÈë³öÉúÈÕÆÚ(yyyymmdd)£º
-    str_InputSex,                       // ÇëÊäÈëĞÔ±ğ(ÄĞ£ºM£¬Å®£ºW)£º
-    str_InputScore,                     // ÇëÊäÈë·ÖÊı(0-%d)£º
-    str_InputPublic,                    // ÇëÑ¡Ôñ×ÊÁÏÊÇ·ñ¹«¿ª(y/n)£º
-    str_InputSort,                      // ÇëÊäÈëÅÅĞò·½Ê½(a£ºÉıĞò£¬d£º½µĞò)£º
-    str_InputOldPwd,                    // ÇëÊäÈë¾ÉÃÜÂë£º
-    str_InputNewPwd,                    // ÇëÊäÈëĞÂÃÜÂë£º
+    str_InputCmd,                       // è¯·è¾“å…¥ä¸€ä¸ªå‘½ä»¤ï¼š
+    str_InputLoginID,                   // è¯·è¾“å…¥ç”¨æˆ·åï¼š
+    str_InputPassword,                  // è¯·è¾“å…¥å¯†ç ï¼š
+    str_AgainPassword,                  // è¯·ç¡®è®¤å¯†ç :
+    str_InputName,                      // è¯·è¾“å…¥å§“åï¼š
+    str_InputBirth,                     // è¯·è¾“å…¥å‡ºç”Ÿæ—¥æœŸ(yyyymmdd)ï¼š
+    str_InputSex,                       // è¯·è¾“å…¥æ€§åˆ«(ç”·ï¼šMï¼Œå¥³ï¼šW)ï¼š
+    str_InputScore,                     // è¯·è¾“å…¥åˆ†æ•°(0-%d)ï¼š
+    str_InputPublic,                    // è¯·é€‰æ‹©èµ„æ–™æ˜¯å¦å…¬å¼€(y/n)ï¼š
+    str_InputSort,                      // è¯·è¾“å…¥æ’åºæ–¹å¼(aï¼šå‡åºï¼Œdï¼šé™åº)ï¼š
+    str_InputOldPwd,                    // è¯·è¾“å…¥æ—§å¯†ç ï¼š
+    str_InputNewPwd,                    // è¯·è¾“å…¥æ–°å¯†ç ï¼š
 
-    str_MemoryIsLess,                   // ÄÚ´æ²»¹»£¡
-    str_StateExp,                       // ×´Ì¬Òì³££¡
-    str_SuccessLogin,                   // µÇÂ½³É¹¦£¡
-    str_SuccessRegister,                // ×¢²á³É¹¦£¡
-    str_SuccessCancel,                  // ×¢Ïú³É¹¦£¡
-    str_SuccessDelete,                  // É¾³ı³É¹¦£¡
-    str_SuccessModifyPwd,               // ĞŞ¸ÄÃÜÂë³É¹¦£¡
-    str_SuccessModifyPub,               // ĞŞ¸Ä¹«¿ªÈ¨ÏŞ³É¹¦£¡
-    str_FailCancel,                     // ×¢ÏúÊ§°Ü£¡
-    str_FailDelete,                     // É¾³ıÊ§°Ü£¡
-    str_CancelCancel,                   // ×¢Ïú²Ù×÷ÒÑÈ¡Ïû£¡
-    str_ErrorOldPwd,                    // ÄúµÄ¾ÉÃÜÂëÊäÈë²»ÕıÈ·£¡
-    str_InvalidCommand,                 // ÄúÊäÈëµÄÃüÁîÎŞĞ§£¡
-    str_InvalidLoginID,                 // ÄúÊäÈëµÄÓÃ»§ÃûÎŞĞ§£¡
-    str_LoginIsExist,                   // ÓÃ»§ÃûÒÑ¾­´æÔÚ£¡
-    str_PasswordLess,                   // ÄúÊäÈëµÄÃÜÂë³¤¶È²»¹»£¡
-    str_PasswordNoSame,                 // ÄúÁ½´ÎÊäÈëµÄÃÜÂë²»Ò»ÖÂ£¡
-    str_ErrorLogin,                     // ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·£¡
-    str_InvalidDate,                    // ÄúÊäÈëµÄ³öÉúÈÕÆÚÎŞĞ§£¡
+    str_MemoryIsLess,                   // å†…å­˜ä¸å¤Ÿï¼
+    str_StateExp,                       // çŠ¶æ€å¼‚å¸¸ï¼
+    str_SuccessLogin,                   // ç™»é™†æˆåŠŸï¼
+    str_SuccessRegister,                // æ³¨å†ŒæˆåŠŸï¼
+    str_SuccessCancel,                  // æ³¨é”€æˆåŠŸï¼
+    str_SuccessDelete,                  // åˆ é™¤æˆåŠŸï¼
+    str_SuccessModifyPwd,               // ä¿®æ”¹å¯†ç æˆåŠŸï¼
+    str_SuccessModifyPub,               // ä¿®æ”¹å…¬å¼€æƒé™æˆåŠŸï¼
+    str_FailCancel,                     // æ³¨é”€å¤±è´¥ï¼
+    str_FailDelete,                     // åˆ é™¤å¤±è´¥ï¼
+    str_CancelCancel,                   // æ³¨é”€æ“ä½œå·²å–æ¶ˆï¼
+    str_ErrorOldPwd,                    // æ‚¨çš„æ—§å¯†ç è¾“å…¥ä¸æ­£ç¡®ï¼
+    str_InvalidCommand,                 // æ‚¨è¾“å…¥çš„å‘½ä»¤æ— æ•ˆï¼
+    str_InvalidLoginID,                 // æ‚¨è¾“å…¥çš„ç”¨æˆ·åæ— æ•ˆï¼
+    str_LoginIsExist,                   // ç”¨æˆ·åå·²ç»å­˜åœ¨ï¼
+    str_PasswordLess,                   // æ‚¨è¾“å…¥çš„å¯†ç é•¿åº¦ä¸å¤Ÿï¼
+    str_PasswordNoSame,                 // æ‚¨ä¸¤æ¬¡è¾“å…¥çš„å¯†ç ä¸ä¸€è‡´ï¼
+    str_ErrorLogin,                     // ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®ï¼
+    str_InvalidDate,                    // æ‚¨è¾“å…¥çš„å‡ºç”Ÿæ—¥æœŸæ— æ•ˆï¼
 
-    str_Exit,                           // ÍË³ö
-    str_Login,                          // µÇÂ½
-    str_Register,                       // ×¢²á
-    str_Back,                           // ·µ»Ø
-    str_Look,                           // ²é¿´
-    str_ModifyPassword,                 // ĞŞ¸ÄÃÜÂë
-    str_ModifyPublic,                   // ĞŞ¸Ä¹«¿ªÈ¨ÏŞ
-    str_Cancel,                         // ×¢Ïú
-    str_Delete,                         // É¾³ı
-    str_Sort,                           // ÅÅĞò
-    str_Sift,                           // É¸Ñ¡
-    str_ByLoginID,                      // °´ÓÃ»§Ãû
-    str_ByName,                         // °´ĞÕÃû
-    str_ByDate,                         // °´³öÉúÈÕÆÚ
-    str_ByScore,                        // °´·ÖÊı
-    str_BySex,                          // °´ĞÔ±ğ
-    str_ByPublic,                       // °´¹«¿ªÈ¨ÏŞ
+    str_Exit,                           // é€€å‡º
+    str_Login,                          // ç™»é™†
+    str_Register,                       // æ³¨å†Œ
+    str_Back,                           // è¿”å›
+    str_Look,                           // æŸ¥çœ‹
+    str_ModifyPassword,                 // ä¿®æ”¹å¯†ç 
+    str_ModifyPublic,                   // ä¿®æ”¹å…¬å¼€æƒé™
+    str_Cancel,                         // æ³¨é”€
+    str_Delete,                         // åˆ é™¤
+    str_Sort,                           // æ’åº
+    str_Sift,                           // ç­›é€‰
+    str_ByLoginID,                      // æŒ‰ç”¨æˆ·å
+    str_ByName,                         // æŒ‰å§“å
+    str_ByDate,                         // æŒ‰å‡ºç”Ÿæ—¥æœŸ
+    str_ByScore,                        // æŒ‰åˆ†æ•°
+    str_BySex,                          // æŒ‰æ€§åˆ«
+    str_ByPublic,                       // æŒ‰å…¬å¼€æƒé™
 
     str_Max
-}AppString; // ×Ö·û´®ID
+}AppString; // å­—ç¬¦ä¸²ID
 
 
 //=============================================================================
-// ÉùÃ÷×ÊÔ´¹ÜÀíÕß½á¹¹
+// å£°æ˜èµ„æºç®¡ç†è€…ç»“æ„
 //=============================================================================
 typedef bool    (*fpLoadData)();
 typedef bool    (*fpSaveData)();
@@ -97,20 +97,20 @@ typedef const char* (*fpGetFile)(int);
 
 typedef struct
 {
-    fpLoadData      m_pfLoadData;       // ¼ÓÔØÊı¾İ
-    fpSaveData      m_pfSaveData;       // ±£´æÊı¾İ
-    fpFreeData      m_pfFreeData;       // ÊÍ·ÅÊı¾İ
+    fpLoadData      m_pfLoadData;       // åŠ è½½æ•°æ®
+    fpSaveData      m_pfSaveData;       // ä¿å­˜æ•°æ®
+    fpFreeData      m_pfFreeData;       // é‡Šæ”¾æ•°æ®
 
-    fpGetFile       m_pfGetFile;        // »ñÈ¡ÎÄ¼şÃû
-    fpGetString     m_pfGetString;      // »ñÈ¡×Ö·û´®
-    fpLoadString    m_pfLoadString;     // ¼ÓÔØ×Ö·û´®
-    fpShowString    m_pfShowString;     // ÏÔÊ¾×Ö·û´©
-}MgrRes;    // ×ÊÔ´¹ÜÀíÕß½á¹¹
+    fpGetFile       m_pfGetFile;        // è·å–æ–‡ä»¶å
+    fpGetString     m_pfGetString;      // è·å–å­—ç¬¦ä¸²
+    fpLoadString    m_pfLoadString;     // åŠ è½½å­—ç¬¦ä¸²
+    fpShowString    m_pfShowString;     // æ˜¾ç¤ºå­—ç¬¦ç©¿
+}MgrRes;    // èµ„æºç®¡ç†è€…ç»“æ„
 
 
 //-----------------------------------------------------------------------------
 
-bool    InitMgrRes();   // ³õÊ¼»¯×ÊÔ´¹ÜÀíÕß
+bool    InitMgrRes();   // åˆå§‹åŒ–èµ„æºç®¡ç†è€…
 
 
 #endif

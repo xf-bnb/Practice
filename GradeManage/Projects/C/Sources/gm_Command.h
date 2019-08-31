@@ -1,13 +1,13 @@
-//=============================================================================
-// ÎÄ¼ş£ºgm_Command.h
-// ÃèÊö£º¶¨Òå½çÃæ²ÎÊı¡¢²Ëµ¥±êÊ¶¡¢³ÌĞò×´Ì¬¡¢´íÎóÂë¡¢ÃüÁî¹ÜÀíÕß¡£
-// ËµÃ÷£º
-//      ÏµÍ³µÄ×´Ì¬·ÖÎª£º
-//      Î´µÇÂ½(LoginOut)¡¢ÆÕÍ¨ÓÃ»§µÇÂ½(LoginPerson)¡¢¹ÜÀíÔ±µÇÂ½(LoginAdmin)¡£
-//      Ã¿Ò»ÖÖ×´Ì¬¶¼ÓĞ¶ÔÓ¦µÄ²Ëµ¥ºÍÖ¸Áî¡£
-//      ÓÃ»§ºÍ¹ÜÀíÔ±µÄÇø±ğÖ÷ÒªÌåÏÖÔÚ¶ÔÈËÔ±µÄ²Ù×÷ºÍ²é¿´¹¦ÄÜ¡£
-//      ¹ÜÀíÔ±µÇÂ½¿ÉÒÔ²é¿´µ½ËùÓĞÓÃ»§ĞÅÏ¢£¬ÒÔ¼°¸ù¾İÓÃ»§ÃûÉ¾³ıÖ¸¶¨ÓÃ»§¡£
-//      ÆÕÍ¨ÓÃ»§µÇÂ½Ö»ÄÜ²é¿´µ½×ÊÁÏÈ¨ÏŞ¹«¿ªµÄÆäËûÓÃ»§ĞÅÏ¢£¬ÒÔ¼°×¢Ïú×Ô¼º¡£
+ï»¿//=============================================================================
+// æ–‡ä»¶ï¼šgm_Command.h
+// æè¿°ï¼šå®šä¹‰ç•Œé¢å‚æ•°ã€èœå•æ ‡è¯†ã€ç¨‹åºçŠ¶æ€ã€é”™è¯¯ç ã€å‘½ä»¤ç®¡ç†è€…ã€‚
+// è¯´æ˜ï¼š
+//      ç³»ç»Ÿçš„çŠ¶æ€åˆ†ä¸ºï¼š
+//      æœªç™»é™†(LoginOut)ã€æ™®é€šç”¨æˆ·ç™»é™†(LoginPerson)ã€ç®¡ç†å‘˜ç™»é™†(LoginAdmin)ã€‚
+//      æ¯ä¸€ç§çŠ¶æ€éƒ½æœ‰å¯¹åº”çš„èœå•å’ŒæŒ‡ä»¤ã€‚
+//      ç”¨æˆ·å’Œç®¡ç†å‘˜çš„åŒºåˆ«ä¸»è¦ä½“ç°åœ¨å¯¹äººå‘˜çš„æ“ä½œå’ŒæŸ¥çœ‹åŠŸèƒ½ã€‚
+//      ç®¡ç†å‘˜ç™»é™†å¯ä»¥æŸ¥çœ‹åˆ°æ‰€æœ‰ç”¨æˆ·ä¿¡æ¯ï¼Œä»¥åŠæ ¹æ®ç”¨æˆ·ååˆ é™¤æŒ‡å®šç”¨æˆ·ã€‚
+//      æ™®é€šç”¨æˆ·ç™»é™†åªèƒ½æŸ¥çœ‹åˆ°èµ„æ–™æƒé™å…¬å¼€çš„å…¶ä»–ç”¨æˆ·ä¿¡æ¯ï¼Œä»¥åŠæ³¨é”€è‡ªå·±ã€‚
 //=============================================================================
 #ifndef _GM_COMMAND_H
 #define _GM_COMMAND_H
@@ -15,87 +15,87 @@
 
 //-----------------------------------------------------------------------------
 
-#define ScreenWidth     73          // ÆÁÄ»¿í¶È
-#define ScreenHeight    15          // ÆÁÄ»¸ß¶È
+#define ScreenWidth     73          // å±å¹•å®½åº¦
+#define ScreenHeight    15          // å±å¹•é«˜åº¦
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum _cmdMain
 {
-    cmdMain_Exit,       // ÍË³ö
-    cmdMain_Login,      // µÇÂ½
-    cmdMain_Register,   // ×¢²á
+    cmdMain_Exit,       // é€€å‡º
+    cmdMain_Login,      // ç™»é™†
+    cmdMain_Register,   // æ³¨å†Œ
 
     cmdMain_Max
-}cmdMain;   // Ö÷²Ëµ¥
+}cmdMain;   // ä¸»èœå•
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum _cmdChild
 {
-    cmdCh_Back,         // ·µ»Ø
-    cmdCh_Look,         // ²é¿´
-    cmdCh_Password,     // ĞŞ¸ÄÃÜÂë
-    cmdCh_Public,       // ĞŞ¸Ä¹«¿ªÈ¨ÏŞ
-    cmdCh_Cancel,       // ×¢Ïú
+    cmdCh_Back,         // è¿”å›
+    cmdCh_Look,         // æŸ¥çœ‹
+    cmdCh_Password,     // ä¿®æ”¹å¯†ç 
+    cmdCh_Public,       // ä¿®æ”¹å…¬å¼€æƒé™
+    cmdCh_Cancel,       // æ³¨é”€
 
     cmdCh_Max
-}cmdChild;  // ÓÃ»§×Ó²Ëµ¥
+}cmdChild;  // ç”¨æˆ·å­èœå•
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum _cmdAdmin
 {
-    cmdAd_Back,         // ·µ»Ø
-    cmdAd_Look,         // ²é¿´
-    cmdAd_Password,     // ĞŞ¸ÄÃÜÂë
-    cmdAd_Delete,       // É¾³ı
+    cmdAd_Back,         // è¿”å›
+    cmdAd_Look,         // æŸ¥çœ‹
+    cmdAd_Password,     // ä¿®æ”¹å¯†ç 
+    cmdAd_Delete,       // åˆ é™¤
 
     cmdAd_Max
-}cmdAdmin;  // ¹ÜÀíÔ±²Ëµ¥
+}cmdAdmin;  // ç®¡ç†å‘˜èœå•
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum _cmdLook
 {
-    cmdLook_Back,       // ·µ»Ø
-    cmdLook_Sort,       // ÅÅĞò
-    cmdLook_Sift,       // É¸Ñ¡
+    cmdLook_Back,       // è¿”å›
+    cmdLook_Sort,       // æ’åº
+    cmdLook_Sift,       // ç­›é€‰
 
     cmdLook_Max
-}cmdLook;  // ²éÑ¯²Ëµ¥
+}cmdLook;  // æŸ¥è¯¢èœå•
 
 //-----------------------------------------------------------------------------
 
 typedef enum _cmdSort
 {
-    cmdSort_Back,       // ·µ»Ø
-    cmdSort_LoginID,    // °´ÓÃ»§Ãû
-    cmdSort_Name,       // °´ĞÕÃû
-    cmdSort_Date,       // °´³öÉúÈÕÆÚ
-    cmdSort_Score,      // °´·ÖÊı
+    cmdSort_Back,       // è¿”å›
+    cmdSort_LoginID,    // æŒ‰ç”¨æˆ·å
+    cmdSort_Name,       // æŒ‰å§“å
+    cmdSort_Date,       // æŒ‰å‡ºç”Ÿæ—¥æœŸ
+    cmdSort_Score,      // æŒ‰åˆ†æ•°
 
     cmdSort_Max
-}cmdSort;   // ÅÅĞò²Ëµ¥
+}cmdSort;   // æ’åºèœå•
 
 //-----------------------------------------------------------------------------
 
 typedef enum _cmdSift
 {
-    cmdSift_Back,       // ·µ»Ø
-    cmdSift_LoginID,    // °´ÓÃ»§Ãû
-    cmdSift_ByName,     // °´ĞÕÃû
-    cmdSift_ByDate,     // °´³öÉúÈÕÆÚ
-    cmdSift_ByScore,    // °´·ÖÊı
-    cmdSift_BySex,      // °´ĞÔ±ğ
-    cmdSift_ByPublic,   // °´¹«¿ªÈ¨ÏŞ
+    cmdSift_Back,       // è¿”å›
+    cmdSift_LoginID,    // æŒ‰ç”¨æˆ·å
+    cmdSift_ByName,     // æŒ‰å§“å
+    cmdSift_ByDate,     // æŒ‰å‡ºç”Ÿæ—¥æœŸ
+    cmdSift_ByScore,    // æŒ‰åˆ†æ•°
+    cmdSift_BySex,      // æŒ‰æ€§åˆ«
+    cmdSift_ByPublic,   // æŒ‰å…¬å¼€æƒé™
 
     cmdSift_Max
-}cmdSift;   // É¸Ñ¡²Ëµ¥
+}cmdSift;   // ç­›é€‰èœå•
 
 //-----------------------------------------------------------------------------
 
@@ -103,56 +103,56 @@ typedef enum _LoginState
 {
     State_None  = -1,
 
-    State_LoginOut,     // Î´µÇÂ½
-    State_LoginPerson,  // ÈËÔ±µÇÂ½
-    State_LoginAdmin,   // ¹ÜÀíÔ±µÇÂ½
+    State_LoginOut,     // æœªç™»é™†
+    State_LoginPerson,  // äººå‘˜ç™»é™†
+    State_LoginAdmin,   // ç®¡ç†å‘˜ç™»é™†
 
     State_Max
-}LoginState;  // µÇÂ½×´Ì¬
+}LoginState;  // ç™»é™†çŠ¶æ€
 
 //-----------------------------------------------------------------------------
 
 typedef enum _ErrorCode
 {
     err_None    = -1,
-    err_MemoryIsLess,       // ÄÚ´æ²»¹»
-    err_StateExp,           // ×´Ì¬Òì³£
-    err_SuccessLogin,       // µÇÂ½³É¹¦
-    err_SuccessRegister,    // ×¢²á³É¹¦
-    err_SuccessCancel,      // ×¢Ïú³É¹¦
-    err_SuccessDelete,      // É¾³ı³É¹¦
-    err_SuccessModifyPwd,   // ĞŞ¸ÄÃÜÂë³É¹¦
-    err_SuccessModifyPub,   // ĞŞ¸Ä¹«¿ªÈ¨ÏŞ³É¹¦
-    err_FailCancel,         // ×¢ÏúÊ§°Ü
-    err_FailDelete,         // É¾³ıÊ§°Ü
-    err_CancelCancel,       // È¡Ïû×¢Ïú
-    err_ErrorOldPwd,        // ¾ÉÃÜÂëÊäÈë²»ÕıÈ·
-    err_InvalidCommand,     // ÃüÁîÎŞĞ§
-    err_InvalidLoginID,     // ÓÃ»§ÃûÎŞĞ§
-    err_LoginIsExist,       // ÓÃ»§ÃûÒÑ¾­´æÔÚ
-    err_PasswordLess,       // ÃÜÂë³¤¶È²»¹»
-    err_PasswordNoSame,     // ÃÜÂë²»Ò»ÖÂ
-    err_ErrorLogin,         // ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·
-    err_InvalidDate,        // ³öÉúÈÕÆÚÎŞĞ§
+    err_MemoryIsLess,       // å†…å­˜ä¸å¤Ÿ
+    err_StateExp,           // çŠ¶æ€å¼‚å¸¸
+    err_SuccessLogin,       // ç™»é™†æˆåŠŸ
+    err_SuccessRegister,    // æ³¨å†ŒæˆåŠŸ
+    err_SuccessCancel,      // æ³¨é”€æˆåŠŸ
+    err_SuccessDelete,      // åˆ é™¤æˆåŠŸ
+    err_SuccessModifyPwd,   // ä¿®æ”¹å¯†ç æˆåŠŸ
+    err_SuccessModifyPub,   // ä¿®æ”¹å…¬å¼€æƒé™æˆåŠŸ
+    err_FailCancel,         // æ³¨é”€å¤±è´¥
+    err_FailDelete,         // åˆ é™¤å¤±è´¥
+    err_CancelCancel,       // å–æ¶ˆæ³¨é”€
+    err_ErrorOldPwd,        // æ—§å¯†ç è¾“å…¥ä¸æ­£ç¡®
+    err_InvalidCommand,     // å‘½ä»¤æ— æ•ˆ
+    err_InvalidLoginID,     // ç”¨æˆ·åæ— æ•ˆ
+    err_LoginIsExist,       // ç”¨æˆ·åå·²ç»å­˜åœ¨
+    err_PasswordLess,       // å¯†ç é•¿åº¦ä¸å¤Ÿ
+    err_PasswordNoSame,     // å¯†ç ä¸ä¸€è‡´
+    err_ErrorLogin,         // ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®
+    err_InvalidDate,        // å‡ºç”Ÿæ—¥æœŸæ— æ•ˆ
 
     err_Max
-}ErrorCode; // ´íÎóÂë
+}ErrorCode; // é”™è¯¯ç 
 
 //-----------------------------------------------------------------------------
 
 typedef enum _MenuType
 {
-    menu_Main,              // Ö÷²Ëµ¥
-    menu_Person,            // ÆÕÍ¨ÓÃ»§²Ëµ¥
-    menu_Admin,             // ¹ÜÀíÔ±²Ëµ¥
-    menu_Look,              // ²é¿´²Ëµ¥
-    menu_Sort,              // ÅÅĞò²Ëµ¥
-    menu_Sift               // É¸Ñ¡²Ëµ¥
-}menuType;  // ²Ëµ¥ÀàĞÍ
+    menu_Main,              // ä¸»èœå•
+    menu_Person,            // æ™®é€šç”¨æˆ·èœå•
+    menu_Admin,             // ç®¡ç†å‘˜èœå•
+    menu_Look,              // æŸ¥çœ‹èœå•
+    menu_Sort,              // æ’åºèœå•
+    menu_Sift               // ç­›é€‰èœå•
+}menuType;  // èœå•ç±»å‹
 
 
 //=============================================================================
-// ÉùÃ÷Ö¸Áî¹ÜÀíÕß
+// å£°æ˜æŒ‡ä»¤ç®¡ç†è€…
 //=============================================================================
 typedef void    (*fpCommand)();
 typedef void    (*fpShowScreen)(int);
@@ -160,15 +160,15 @@ typedef void    (*fpShowMenu)(int);
 
 typedef struct
 {
-    fpCommand       m_pfCommand[State_Max];     // Ö¸Áîº¯ÊıÖ¸ÕëÊı×é
-    fpShowMenu      m_pfShowMenu;               // ÏÔÊ¾²Ëµ¥
-    fpShowScreen    m_pfShowScreen;             // ÏÔÊ¾½çÃæ
-}MgrCmd;    // Ö¸Áî¹ÜÀíÕß
+    fpCommand       m_pfCommand[State_Max];     // æŒ‡ä»¤å‡½æ•°æŒ‡é’ˆæ•°ç»„
+    fpShowMenu      m_pfShowMenu;               // æ˜¾ç¤ºèœå•
+    fpShowScreen    m_pfShowScreen;             // æ˜¾ç¤ºç•Œé¢
+}MgrCmd;    // æŒ‡ä»¤ç®¡ç†è€…
 
 
 //-----------------------------------------------------------------------------
 
-bool InitMerCmd();      // ³õÊ¼»¯ÃüÁî¹ÜÀíÕß
+bool InitMerCmd();      // åˆå§‹åŒ–å‘½ä»¤ç®¡ç†è€…
 
 
 #endif

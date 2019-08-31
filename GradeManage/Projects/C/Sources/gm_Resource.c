@@ -1,4 +1,4 @@
-#include "gm_Include.h"
+ï»¿#include "gm_Include.h"
 
 
 //-----------------------------------------------------------------------------
@@ -12,32 +12,32 @@ static const char g_strFileName[File_Max][Size_FileName] =
     "..\\Resources\\String.txt",
     "..\\Resources\\Admin.dll",
     "..\\Resources\\Person.dll"
-};  // ÎÄ¼ş³Ø
+};  // æ–‡ä»¶æ± 
 
 //-----------------------------------------------------------------------------
 
-static char g_strString[str_Max][Size_String] = { 0 };     // ×Ö·û´®³Ø
+static char g_strString[str_Max][Size_String] = { 0 };     // å­—ç¬¦ä¸²æ± 
 
 
 //=============================================================================
-// ¾Ö²¿º¯ÊıÉùÃ÷
+// å±€éƒ¨å‡½æ•°å£°æ˜
 //=============================================================================
-static bool SaveData();                         // ±£´æÁ´±í
-static bool LoadData();                         // ¼ÓÔØÁ´±í
-static bool FreeData();                         // ÊÍ·ÅÁ´±í
-static bool LoadPerson();                       // ¼ÓÔØÈËÔ±Á´±í
-static bool LoadAdmin();                        // ¼ÓÔØ¹ÜÀíÔ±Á´±í
-static bool SavePerson();                       // ±£´æÈËÔ±Á´±í
-static bool SaveAdmin();                        // ±£´æ¹ÜÀíÔ±Á´±í
+static bool SaveData();                         // ä¿å­˜é“¾è¡¨
+static bool LoadData();                         // åŠ è½½é“¾è¡¨
+static bool FreeData();                         // é‡Šæ”¾é“¾è¡¨
+static bool LoadPerson();                       // åŠ è½½äººå‘˜é“¾è¡¨
+static bool LoadAdmin();                        // åŠ è½½ç®¡ç†å‘˜é“¾è¡¨
+static bool SavePerson();                       // ä¿å­˜äººå‘˜é“¾è¡¨
+static bool SaveAdmin();                        // ä¿å­˜ç®¡ç†å‘˜é“¾è¡¨
 
-static bool LoadString();                       // ¼ÓÔØ×Ö·û´®
-static bool ShowString(int eID, bool bHas);     // ÏÔÊ¾×Ö·û´®
-static const char* GetString(int eID);          // »ñÈ¡×Ö·û´®
-static const char* GetFileName(int eFile);      // »ñÈ¡ÎÄ¼şÃû
+static bool LoadString();                       // åŠ è½½å­—ç¬¦ä¸²
+static bool ShowString(int eID, bool bHas);     // æ˜¾ç¤ºå­—ç¬¦ä¸²
+static const char* GetString(int eID);          // è·å–å­—ç¬¦ä¸²
+static const char* GetFileName(int eFile);      // è·å–æ–‡ä»¶å
 
 
 //=============================================================================
-// º¯Êı¶¨Òå
+// å‡½æ•°å®šä¹‰
 //=============================================================================
 //-----------------------------------------------------------------------------
 
@@ -57,20 +57,20 @@ static bool LoadString()
 {    
     FILE *hFile = NULL;
 
-    const char* pName = GetFileName(File_String);   // »ñÈ¡ÎÄ¼şÃû
+    const char* pName = GetFileName(File_String);   // è·å–æ–‡ä»¶å
 
     if( !pName ) return false;
     
-    bnb_fopen(hFile, pName, "r");    // ´ò¿ªÎÄ¼ş
+    bnb_fopen(hFile, pName, "r");    // æ‰“å¼€æ–‡ä»¶
 
     if ( hFile ) 
     {
         int i = 0;
 
-        // Ñ­»·¶ÁÈ¡×Ö·û´®
+        // å¾ªç¯è¯»å–å­—ç¬¦ä¸²
         while ( i < str_Max && fgets(g_strString[i], Size_String, hFile) )
         {
-            char* p = strchr(g_strString[i], '\n'); // ËÑË÷²¢ÌŞ³ı»»ĞĞ·û
+            char* p = strchr(g_strString[i], '\n'); // æœç´¢å¹¶å‰”é™¤æ¢è¡Œç¬¦
             if ( p ) *p = 0;
 
             i++;
@@ -154,7 +154,7 @@ static bool LoadPerson()
 
     for ( ; ; )
     {
-        // ¶¨Òå»º³åÇø
+        // å®šä¹‰ç¼“å†²åŒº
         char loginID[Length_LoginID_Max+1] = { 0 };
         char password[Length_Password_Max+1] = { 0 };
         char name[Length_Name+1] = { 0 };
@@ -167,7 +167,7 @@ static bool LoadPerson()
 
         size_t ret = 0, size = 0;
 
-        // ¿ªÊ¼¶ÁÈ¡ÎÄ¼ş£¬Èç¹ûÖ¸¶¨Òª¶ÁµÄ×Ö·ûÊıºÍÊµ¼Ê¶Áµ½µÄ×Ö·ûÊı²»ÏàµÈ£¬Ôò¶ÁÈ¡½áÊø¡£
+        // å¼€å§‹è¯»å–æ–‡ä»¶ï¼Œå¦‚æœæŒ‡å®šè¦è¯»çš„å­—ç¬¦æ•°å’Œå®é™…è¯»åˆ°çš„å­—ç¬¦æ•°ä¸ç›¸ç­‰ï¼Œåˆ™è¯»å–ç»“æŸã€‚
         size = sizeof(loginID) - 1;
         ret = bnb_fread(loginID, size, 1, size, hFile);
         if ( ret != size ) break;
@@ -196,7 +196,7 @@ static bool LoadPerson()
         ret = bnb_fread(&iPublic, size, 1, size, hFile);
         if ( ret != size ) break;
 
-        // ·ÖÅä½ÚµãÄÚ´æ
+        // åˆ†é…èŠ‚ç‚¹å†…å­˜
         pPer = (person*)malloc(sizeof(person));
 
         if ( pPer )
@@ -212,7 +212,7 @@ static bool LoadPerson()
             pPer->m_bPublic = (bool)iPublic;
             pPer->m_pNext = NULL;
             
-            // ½«½ÚµãÌí¼Óµ½Á´±íÖĞ
+            // å°†èŠ‚ç‚¹æ·»åŠ åˆ°é“¾è¡¨ä¸­
             g_pAppMgr->m_pMgrPer->m_pfAddPer(&g_pAppData->m_pHeadPer, pPer);
         }
     }
@@ -237,7 +237,7 @@ static bool LoadAdmin()
 
     for ( ; ; )
     {
-        // ¶¨Òå»º³åÇø
+        // å®šä¹‰ç¼“å†²åŒº
         char loginID[Length_LoginID_Max+1] = { 0 };
         char password[Length_Password_Max+1] = { 0 };
 
@@ -263,7 +263,7 @@ static bool LoadAdmin()
             bnb_strcpy(item->m_strPassword, Length_Password_Max+1, password);
             item->m_pNext = NULL;
            
-            // ½«½ÚµãÌí¼Óµ½Á´±íÖĞ
+            // å°†èŠ‚ç‚¹æ·»åŠ åˆ°é“¾è¡¨ä¸­
             g_pAppMgr->m_pMgrPer->m_pfAddAdmin(&g_pAppData->m_pHeadAdmin, item);
         }
     }

@@ -1,11 +1,11 @@
-//=============================================================================
-// ÎÄ¼ş£ºgm_Person.h
-// ÃèÊö£º¶¨ÒåÓÃ»§½á¹¹²ÎÊı¡¢³£Á¿£¬ÓÃ»§¹ÜÀíÕß¡£
-// ËµÃ÷£º
-//      ÓÃ»§ÀàĞÍ·ÖÎªÆÕÍ¨ÓÃ»§(person)ºÍ¹ÜÀíÔ±(admin)¡£
-//      Á½ÖÖÀàĞÍ¾ùÖ§³ÖÁ´±í½á¹¹¡£
-//      ÓÃ»§ĞÅÏ¢¹ÜÀíÕß(MgrPer)Ìá¹©¶ÔÁ´±í½á¹¹µÄËùÓĞ²Ù×÷¡£
-//      °üÀ¨£ºÌí¼Ó¡¢²éÕÒ¡¢É¾³ı¡¢ÊÍ·Å¡¢²åÈë¡¢±È½Ï¡¢¸´ÖÆ¡£
+ï»¿//=============================================================================
+// æ–‡ä»¶ï¼šgm_Person.h
+// æè¿°ï¼šå®šä¹‰ç”¨æˆ·ç»“æ„å‚æ•°ã€å¸¸é‡ï¼Œç”¨æˆ·ç®¡ç†è€…ã€‚
+// è¯´æ˜ï¼š
+//      ç”¨æˆ·ç±»å‹åˆ†ä¸ºæ™®é€šç”¨æˆ·(person)å’Œç®¡ç†å‘˜(admin)ã€‚
+//      ä¸¤ç§ç±»å‹å‡æ”¯æŒé“¾è¡¨ç»“æ„ã€‚
+//      ç”¨æˆ·ä¿¡æ¯ç®¡ç†è€…(MgrPer)æä¾›å¯¹é“¾è¡¨ç»“æ„çš„æ‰€æœ‰æ“ä½œã€‚
+//      åŒ…æ‹¬ï¼šæ·»åŠ ã€æŸ¥æ‰¾ã€åˆ é™¤ã€é‡Šæ”¾ã€æ’å…¥ã€æ¯”è¾ƒã€å¤åˆ¶ã€‚
 //=============================================================================
 #ifndef _GM_PERSON_H
 #define _GM_PERSON_H
@@ -13,64 +13,64 @@
 
 //-----------------------------------------------------------------------------
 
-#define Length_LoginID_Min  3                   // ÕÊ»§Ãû×îĞ¡³¤¶È
-#define Length_LoginID_Max  13                  // ÕË»§Ãû×î´ó³¤¶È
-#define Length_Password_Min 6                   // ÃÜÂë×îĞ¡³¤¶È
-#define Length_Password_Max 16                  // ÃÜÂë×î´ó³¤¶È
-#define Length_Name         12                  // ĞÕÃû×î´ó³¤¶È
-#define Length_Date         8                   // ÈÕÆÚ³¤¶È
-#define Score_Max           150                 // ·ÖÊı×î´óÖµ
+#define Length_LoginID_Min  3                   // å¸æˆ·åæœ€å°é•¿åº¦
+#define Length_LoginID_Max  13                  // è´¦æˆ·åæœ€å¤§é•¿åº¦
+#define Length_Password_Min 6                   // å¯†ç æœ€å°é•¿åº¦
+#define Length_Password_Max 16                  // å¯†ç æœ€å¤§é•¿åº¦
+#define Length_Name         12                  // å§“åæœ€å¤§é•¿åº¦
+#define Length_Date         8                   // æ—¥æœŸé•¿åº¦
+#define Score_Max           150                 // åˆ†æ•°æœ€å¤§å€¼
 
 //-----------------------------------------------------------------------------
 
 typedef enum
 {
-    Per_Admin,      // ¹ÜÀíÔ±
-    Per_Person,     // ÆÕÍ¨ÓÃ»§
+    Per_Admin,      // ç®¡ç†å‘˜
+    Per_Person,     // æ™®é€šç”¨æˆ·
 
     Per_Max
-}UserType;   // ÓÃ»§ÀàĞÍ
+}UserType;   // ç”¨æˆ·ç±»å‹
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum
 {
-    Sex_Male,        // ÄĞ
-    Sex_Female,      // Å®
+    Sex_Male,        // ç”·
+    Sex_Female,      // å¥³
 
     Sex_Max
-} E_Sex;    // ĞÔ±ğ
+} E_Sex;    // æ€§åˆ«
 
 //-----------------------------------------------------------------------------
 
 typedef enum
 {
-    Sort_Account    = 0x0,  // °´ÓÃ»§Ãû
-    Sort_Name       = 0x1,  // °´ĞÕÃû
-    Sort_Date       = 0x2,  // °´³öÉúÈÕÆÚ
-    Sort_Score      = 0x3,  // °´·ÖÊı
-    Sort_Right      = 0x3,  // ÅÅĞòÌõ¼ş
+    Sort_Account    = 0x0,  // æŒ‰ç”¨æˆ·å
+    Sort_Name       = 0x1,  // æŒ‰å§“å
+    Sort_Date       = 0x2,  // æŒ‰å‡ºç”Ÿæ—¥æœŸ
+    Sort_Score      = 0x3,  // æŒ‰åˆ†æ•°
+    Sort_Right      = 0x3,  // æ’åºæ¡ä»¶
 
-    Sort_Asce       = 0x0,  // ÉıĞò
-    Sort_Desc       = 0x4,  // ½µĞò
-    Sort_Type       = 0x4   // ÅÅĞòÀàĞÍ
+    Sort_Asce       = 0x0,  // å‡åº
+    Sort_Desc       = 0x4,  // é™åº
+    Sort_Type       = 0x4   // æ’åºç±»å‹
 
-}E_SortType;    // ÅÅĞò·½Ê½(ÅÅĞòÌõ¼şºÍÅÅĞòÀàĞÍ×é³ÉÅÅĞò·½Ê½)
+}E_SortType;    // æ’åºæ–¹å¼(æ’åºæ¡ä»¶å’Œæ’åºç±»å‹ç»„æˆæ’åºæ–¹å¼)
 
 
 //-----------------------------------------------------------------------------
 
 typedef enum
 {
-    Filter_Account  = 0x01, // °´ÓÃ»§Ãû
-    Filter_ByName   = 0x02, // °´ĞÕÃû
-    Filter_ByDate   = 0x04, // °´³öÉúÈÕÆÚ
-    Filter_BySex    = 0x08, // °´ĞÔ±ğ
-    Filter_ByScore  = 0x10, // °´·ÖÊı
-    Filter_ByRight  = 0x20, // °´¹«¿ªÈ¨ÏŞ
-    Filter_Mask     = 0x3f  // É¸Ñ¡Ìõ¼ş
-}E_SiftType;    // É¸Ñ¡·½Ê½
+    Filter_Account  = 0x01, // æŒ‰ç”¨æˆ·å
+    Filter_ByName   = 0x02, // æŒ‰å§“å
+    Filter_ByDate   = 0x04, // æŒ‰å‡ºç”Ÿæ—¥æœŸ
+    Filter_BySex    = 0x08, // æŒ‰æ€§åˆ«
+    Filter_ByScore  = 0x10, // æŒ‰åˆ†æ•°
+    Filter_ByRight  = 0x20, // æŒ‰å…¬å¼€æƒé™
+    Filter_Mask     = 0x3f  // ç­›é€‰æ¡ä»¶
+}E_SiftType;    // ç­›é€‰æ–¹å¼
 
 
 
@@ -78,7 +78,7 @@ typedef enum
 
 typedef struct
 {
-    int         m_eReason;  // Ö¸¶¨ÓĞĞ§Êı¾İ±êÊ¶
+    int         m_eReason;  // æŒ‡å®šæœ‰æ•ˆæ•°æ®æ ‡è¯†
 
     union{
         int     m_eSex;
@@ -89,42 +89,42 @@ typedef struct
         char    m_strLoginID[Length_LoginID_Max+1];
     }m_unData;
 
-}siftdata;  // É¸Ñ¡Êı¾İ½á¹¹
+}siftdata;  // ç­›é€‰æ•°æ®ç»“æ„
 
 
 //-----------------------------------------------------------------------------
 
 typedef struct _person
 {
-    char    m_strLoginID[Length_LoginID_Max+1];     // ÕË»§Ãû
-    char    m_strPassword[Length_Password_Max+1];   // ÃÜÂë
-    char    m_strName[Length_Name+1];               // ĞÕÃû
-    char    m_strDate[Length_Date+1];               // ÈÕÆÚ
-    int     m_eSex;                                 // ĞÔ±ğ
-    int     m_iScore;                               // ·ÖÊı
-    bool    m_bPublic;                              // ÊÇ·ñ¹«¿ª
+    char    m_strLoginID[Length_LoginID_Max+1];     // è´¦æˆ·å
+    char    m_strPassword[Length_Password_Max+1];   // å¯†ç 
+    char    m_strName[Length_Name+1];               // å§“å
+    char    m_strDate[Length_Date+1];               // æ—¥æœŸ
+    int     m_eSex;                                 // æ€§åˆ«
+    int     m_iScore;                               // åˆ†æ•°
+    bool    m_bPublic;                              // æ˜¯å¦å…¬å¼€
 
-    struct _person* m_pNext;                        // Ö¸ÏòÏÂÒ»¸ö½ÚµãÖ¸Õë
+    struct _person* m_pNext;                        // æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹æŒ‡é’ˆ
 
-} person;   // ÈËÔ±ĞÅÏ¢½á¹¹
+} person;   // äººå‘˜ä¿¡æ¯ç»“æ„
 
 
 //-----------------------------------------------------------------------------
 
 typedef struct _admin 
 {
-    char    m_strLoginID[Length_LoginID_Max+1];     // ÕË»§Ãû
-    char    m_strPassword[Length_Password_Max+1];   // ÃÜÂë
+    char    m_strLoginID[Length_LoginID_Max+1];     // è´¦æˆ·å
+    char    m_strPassword[Length_Password_Max+1];   // å¯†ç 
 
-    struct  _admin* m_pNext;                        // Ö¸ÏòÏÂÒ»¸ö½ÚµãÖ¸Õë
+    struct  _admin* m_pNext;                        // æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹æŒ‡é’ˆ
 
-}admin; // ¹ÜÀíÔ±ĞÅÏ¢½á¹¹
+}admin; // ç®¡ç†å‘˜ä¿¡æ¯ç»“æ„
 
 
 
 
 //=============================================================================
-// ÉùÃ÷ÈËÔ±ĞÅÏ¢¹ÜÀíÕß
+// å£°æ˜äººå‘˜ä¿¡æ¯ç®¡ç†è€…
 //=============================================================================
 typedef bool    (*fpAddAdmin)(admin**, admin*);
 typedef void    (*fpFreeAdmin)(admin*);
@@ -138,22 +138,22 @@ typedef const person* (*fpFindPer)(const person*, const siftdata*);
 
 typedef struct
 {
-    fpAddAdmin      m_pfAddAdmin;       // Ìí¼Ó¹ÜÀíÔ±½Úµã
-    fpFreeAdmin     m_pfFreeAdmin;      // ÊÍ·Å¹ÜÀíÔ±Á´±í
+    fpAddAdmin      m_pfAddAdmin;       // æ·»åŠ ç®¡ç†å‘˜èŠ‚ç‚¹
+    fpFreeAdmin     m_pfFreeAdmin;      // é‡Šæ”¾ç®¡ç†å‘˜é“¾è¡¨
         
-    fpDelPer        m_pfDelPer;         // É¾³ı½Úµã
-    fpAddPer        m_pfAddPer;         // Ìí¼ÓÈËÔ±½Úµã
-    fpFreePer       m_pfFreePer;        // ÊÍ·ÅÈËÔ±Á´±í
-    fpFindPer       m_pfFindPer;        // ²éÕÒ½Úµã
-    fpShowPer       m_pfShowPer;        // ÏÔÊ¾½Úµã
-    fpCopyPer       m_pfCopyPer;        // ¸´ÖÆ½á¹¹
-    fpInsertPer     m_pfInsertPer;      // ²åÈë½Úµã
+    fpDelPer        m_pfDelPer;         // åˆ é™¤èŠ‚ç‚¹
+    fpAddPer        m_pfAddPer;         // æ·»åŠ äººå‘˜èŠ‚ç‚¹
+    fpFreePer       m_pfFreePer;        // é‡Šæ”¾äººå‘˜é“¾è¡¨
+    fpFindPer       m_pfFindPer;        // æŸ¥æ‰¾èŠ‚ç‚¹
+    fpShowPer       m_pfShowPer;        // æ˜¾ç¤ºèŠ‚ç‚¹
+    fpCopyPer       m_pfCopyPer;        // å¤åˆ¶ç»“æ„
+    fpInsertPer     m_pfInsertPer;      // æ’å…¥èŠ‚ç‚¹
 
-}MgrPer;    // ÈËÔ±ĞÅÏ¢¹ÜÀíÕß
+}MgrPer;    // äººå‘˜ä¿¡æ¯ç®¡ç†è€…
 
 
 //-----------------------------------------------------------------------------
 
-bool InitMgrPer();      // ³õÊ¼»¯ÈËÔ±¹ÜÀíÕß
+bool InitMgrPer();      // åˆå§‹åŒ–äººå‘˜ç®¡ç†è€…
 
 #endif

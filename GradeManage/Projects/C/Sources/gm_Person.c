@@ -1,11 +1,11 @@
-#include "gm_Include.h"
+ï»¿#include "gm_Include.h"
 
 
 //=============================================================================
-// ¶¨ÒåÈ«¾Ö¾²Ì¬±äÁ¿
+// å®šä¹‰å…¨å±€é™æ€å˜é‡
 //=============================================================================
-static const char g_strSex[Sex_Max][Size_Word]  = { "¡á ", " ¡â" };
-static const char g_strPublic[2][Size_Word]     = { "¡Á", "¡Ì" };
+static const char g_strSex[Sex_Max][Size_Word]  = { "â™‚ ", " â™€" };
+static const char g_strPublic[2][Size_Word]     = { "Ã—", "âˆš" };
 
 //-----------------------------------------------------------------------------
 
@@ -13,51 +13,51 @@ static MgrPer   g_sMgrPer;
 
 
 //=============================================================================
-// ¾Ö²¿º¯ÊýÉùÃ÷
+// å±€éƒ¨å‡½æ•°å£°æ˜Ž
 //=============================================================================
-static bool AddAdmin(admin** head, admin* item);            // Ìí¼Ó¹ÜÀíÔ±½Úµã
-static void FreeAdmin(admin* head);                         // ÊÍ·Å¹ÜÀíÔ±Á´±í
-static bool AddPerson(person** head, person* item);         // Ìí¼ÓÈËÔ±½Úµã
-static bool DelPerson(person** head, const char* strLogin); // ¸ù¾ÝÓÃ»§ÃûÉ¾³ýÈËÔ±½Úµã
-static void FreePerson(person* head);                       // ÊÍ·ÅÈËÔ±Á´±í
-static bool ShowPerson(const person* item);                 // ÏÔÊ¾Ò»¸öÈËÔ±
-static bool CopyPerson(person* item1, const person* item2); // ½« item2 ¿½±´µ½ item1 ÖÐ¡£
+static bool AddAdmin(admin** head, admin* item);            // æ·»åŠ ç®¡ç†å‘˜èŠ‚ç‚¹
+static void FreeAdmin(admin* head);                         // é‡Šæ”¾ç®¡ç†å‘˜é“¾è¡¨
+static bool AddPerson(person** head, person* item);         // æ·»åŠ äººå‘˜èŠ‚ç‚¹
+static bool DelPerson(person** head, const char* strLogin); // æ ¹æ®ç”¨æˆ·ååˆ é™¤äººå‘˜èŠ‚ç‚¹
+static void FreePerson(person* head);                       // é‡Šæ”¾äººå‘˜é“¾è¡¨
+static bool ShowPerson(const person* item);                 // æ˜¾ç¤ºä¸€ä¸ªäººå‘˜
+static bool CopyPerson(person* item1, const person* item2); // å°† item2 æ‹·è´åˆ° item1 ä¸­ã€‚
 
 /*
- *	º¯Êý£ºFindPerson
- *  ¹¦ÄÜ£ºÔÚÁ´±íÖÐ²éÕÒ½Úµã
- *  ²ÎÊý£ºhead Ö¸¶¨Á´±íÍ·½ÚµãÖ¸ÕëµÄµØÖ·£¬data Ö¸¶¨´ý±È½ÏÊý¾Ý¡£
- *  ·µ»Ø£ºÕÒµ½µÄ½Úµã£¬ÕÒ²»µ½·µ»Ø NULL¡£
+ *	å‡½æ•°ï¼šFindPerson
+ *  åŠŸèƒ½ï¼šåœ¨é“¾è¡¨ä¸­æŸ¥æ‰¾èŠ‚ç‚¹
+ *  å‚æ•°ï¼šhead æŒ‡å®šé“¾è¡¨å¤´èŠ‚ç‚¹æŒ‡é’ˆçš„åœ°å€ï¼Œdata æŒ‡å®šå¾…æ¯”è¾ƒæ•°æ®ã€‚
+ *  è¿”å›žï¼šæ‰¾åˆ°çš„èŠ‚ç‚¹ï¼Œæ‰¾ä¸åˆ°è¿”å›ž NULLã€‚
  */
 static const person* FindPerson(const person* head, const siftdata* data);
 
 /*
- *	º¯Êý£ºInsertPerson
- *  ¹¦ÄÜ£ºÓÐÐò²åÈë½Úµã
- *  ²ÎÊý£ºhead Ö¸¶¨Á´±íÍ·½ÚµãÖ¸ÕëµÄµØÖ·£¬item Ö¸¶¨´ý²å½Úµã£¬eSort Ö¸¶¨ÅÅÐò·½Ê½¡£
- *  ·µ»Ø£º³É¹¦·µ»Ø true£¬·ñÔò·µ»Ø false¡£
+ *	å‡½æ•°ï¼šInsertPerson
+ *  åŠŸèƒ½ï¼šæœ‰åºæ’å…¥èŠ‚ç‚¹
+ *  å‚æ•°ï¼šhead æŒ‡å®šé“¾è¡¨å¤´èŠ‚ç‚¹æŒ‡é’ˆçš„åœ°å€ï¼Œitem æŒ‡å®šå¾…æ’èŠ‚ç‚¹ï¼ŒeSort æŒ‡å®šæŽ’åºæ–¹å¼ã€‚
+ *  è¿”å›žï¼šæˆåŠŸè¿”å›ž trueï¼Œå¦åˆ™è¿”å›ž falseã€‚
  */
-static bool InsertPerson(person** head, person* item, int eSort);   // ÓÐÐò²åÈë½Úµã
+static bool InsertPerson(person** head, person* item, int eSort);   // æœ‰åºæ’å…¥èŠ‚ç‚¹
 
 /*
- *	º¯Êý£ºIsEqualSiftData
- *  ¹¦ÄÜ£ºÅÐ¶Ï½ÚµãºÍÉ¸Ñ¡Êý¾ÝÊÇ·ñÏàµÈ
- *  ²ÎÊý£ºitem Ö¸¶¨´ý±È½Ï½Úµã£¬data Ö¸¶¨´ý±È½ÏÊý¾Ý¡£
- *  ·µ»Ø£ºÏàµÈ·µ»Ø true£¬·ñÔò·µ»Ø false¡£
+ *	å‡½æ•°ï¼šIsEqualSiftData
+ *  åŠŸèƒ½ï¼šåˆ¤æ–­èŠ‚ç‚¹å’Œç­›é€‰æ•°æ®æ˜¯å¦ç›¸ç­‰
+ *  å‚æ•°ï¼šitem æŒ‡å®šå¾…æ¯”è¾ƒèŠ‚ç‚¹ï¼Œdata æŒ‡å®šå¾…æ¯”è¾ƒæ•°æ®ã€‚
+ *  è¿”å›žï¼šç›¸ç­‰è¿”å›ž trueï¼Œå¦åˆ™è¿”å›ž falseã€‚
  */
 static bool IsEqualSiftData(const person* item, const siftdata* data);
 
 /*
- *	º¯Êý£ºComparePerson
- *  ¹¦ÄÜ£º±È½Ï2¸ö½ÚµãµÄ´óÐ¡¡£(×¢£º¸Ãº¯Êý¼Ù¶¨´ý±È½ÏÊý¾ÝÖ¸Õë²»Îª¿Õ£¬²»×öÖ¸ÕëÓÐÐ§ÐÔ¼ì²é¡£)
- *  ²ÎÊý£ºitem1¡¢item2 Ö¸¶¨´ý±È½ÏµÄ2¸ö½Úµã£¬eType Ö¸¶¨±È½ÏÀàÐÍ(²Î¼ûÃ¶¾Ù£ºE_SortType)¡£
- *  ·µ»Ø£ºitem1>item2 ·µ»Ø >0£¬item1==item2 ·µ»Ø =0£¬item1<item2 ·µ»Ø <0¡£
+ *	å‡½æ•°ï¼šComparePerson
+ *  åŠŸèƒ½ï¼šæ¯”è¾ƒ2ä¸ªèŠ‚ç‚¹çš„å¤§å°ã€‚(æ³¨ï¼šè¯¥å‡½æ•°å‡å®šå¾…æ¯”è¾ƒæ•°æ®æŒ‡é’ˆä¸ä¸ºç©ºï¼Œä¸åšæŒ‡é’ˆæœ‰æ•ˆæ€§æ£€æŸ¥ã€‚)
+ *  å‚æ•°ï¼šitem1ã€item2 æŒ‡å®šå¾…æ¯”è¾ƒçš„2ä¸ªèŠ‚ç‚¹ï¼ŒeType æŒ‡å®šæ¯”è¾ƒç±»åž‹(å‚è§æžšä¸¾ï¼šE_SortType)ã€‚
+ *  è¿”å›žï¼šitem1>item2 è¿”å›ž >0ï¼Œitem1==item2 è¿”å›ž =0ï¼Œitem1<item2 è¿”å›ž <0ã€‚
  */
 static int ComparePerson(const person* item1, const person* item2, int eType);
 
 
 //=============================================================================
-// º¯Êý¶¨Òå
+// å‡½æ•°å®šä¹‰
 //=============================================================================
 //-----------------------------------------------------------------------------
 
@@ -65,13 +65,13 @@ static bool AddAdmin( admin** head, admin* item )
 {
     if ( !head || !item ) return false;
 
-    if ( *head ) // Èç¹ûÍ·½Úµã²»Îª¿Õ
+    if ( *head ) // å¦‚æžœå¤´èŠ‚ç‚¹ä¸ä¸ºç©º
     {
         admin* p = *head;
 
-        while ( p->m_pNext ) p = p->m_pNext;    // ±éÀúµ½Á´±íÎ²
+        while ( p->m_pNext ) p = p->m_pNext;    // éåŽ†åˆ°é“¾è¡¨å°¾
 
-        p->m_pNext = item;      // ½«½ÚµãÌí¼Óµ½Î²²¿
+        p->m_pNext = item;      // å°†èŠ‚ç‚¹æ·»åŠ åˆ°å°¾éƒ¨
     }
     else
     {
@@ -99,13 +99,13 @@ static bool AddPerson( person** head, person* item )
 {
     if ( !head || !item ) return false;
 
-    if ( *head ) // Èç¹ûÍ·½Úµã²»Îª¿Õ
+    if ( *head ) // å¦‚æžœå¤´èŠ‚ç‚¹ä¸ä¸ºç©º
     {
         person* p = *head;
 
-        while ( p->m_pNext ) p = p->m_pNext;    // ±éÀúµ½Á´±íÎ²
+        while ( p->m_pNext ) p = p->m_pNext;    // éåŽ†åˆ°é“¾è¡¨å°¾
 
-        p->m_pNext = item;      // ½«½ÚµãÌí¼Óµ½Î²²¿
+        p->m_pNext = item;      // å°†èŠ‚ç‚¹æ·»åŠ åˆ°å°¾éƒ¨
     }
     else
     {
@@ -181,13 +181,13 @@ static bool ShowPerson( const person* pPer )
 
     if ( !pPer ) return false;
 
-    // ½âÎöÈÕÆÚ
+    // è§£æžæ—¥æœŸ
     ymd = atoi(pPer->m_strDate);
     d = ymd % 100;
     m = (ymd / 100) % 100;
     y = ymd / 10000;
 
-    // ×éºÏÊä³ö¸ñÊ½»¯´®
+    // ç»„åˆè¾“å‡ºæ ¼å¼åŒ–ä¸²
 #if _MSC_VER >= 1500
 	sprintf_s(format, Size_Buffer
 #else
@@ -197,7 +197,7 @@ static bool ShowPerson( const person* pPer )
         , Length_LoginID_Max
         , Length_Name);
         
-    // ´òÓ¡½Úµã
+    // æ‰“å°èŠ‚ç‚¹
     printf(format
         , pPer->m_strLoginID
         , pPer->m_strName
@@ -215,7 +215,7 @@ static bool CopyPerson( person* item1, const person* item2 )
 {
     if ( !item1 || !item2 ) return false;
 
-    memset(item1, 0, sizeof(person));   // Çå¿ÕÄÚ´æ
+    memset(item1, 0, sizeof(person));   // æ¸…ç©ºå†…å­˜
 
     bnb_strcpy(item1->m_strLoginID, Length_LoginID_Max+1, item2->m_strLoginID);
     bnb_strcpy(item1->m_strPassword, Length_Password_Max+1, item2->m_strPassword);
