@@ -217,7 +217,7 @@ static void MenuSort()
 
             g_pAppMgr->m_pMgrRes->m_pfShowString(str_InputSort, false);
 
-            for (key = 'a'; key != '\r'; key = _getch())
+            for (key = 'a'; key != '\r'; key = GetChar())
             {
                 if ('a' == key)
                 {
@@ -325,7 +325,7 @@ static int GetCommand()
 
     g_pAppMgr->m_pMgrRes->m_pfShowString(str_InputCmd, false);
 
-    for ( last = _getch(); '\r' != last; last = _getch())
+    for ( last = GetChar(); '\r' != last; last = GetChar())
     {
         key = last;
 
@@ -337,7 +337,11 @@ static int GetCommand()
         }
     }
 
+#ifdef _MSC_VER
     system("cls");
+#else
+    system("clear");
+#endif
 
     return (key - '0');
 }
@@ -435,7 +439,7 @@ static int CmdCancel()
 
     g_pAppMgr->m_pMgrRes->m_pfShowString(str_VerifyCancel, false);
 
-    for (key = 'Y'; key != '\r'; key = _getch())
+    for (key = 'Y'; key != '\r'; key = GetChar())
     {
         if ('Y' == key || 'y' == key)
         {
@@ -835,7 +839,7 @@ static int InputSex()
 
     g_pAppMgr->m_pMgrRes->m_pfShowString(str_InputSex, false);
 
-    for (key = 'M'; key != '\r'; key = _getch())
+    for (key = 'M'; key != '\r'; key = GetChar())
     {
         if ('M' == key || 'm' == key)
         {
@@ -877,7 +881,7 @@ static bool InputPublic()
 
     g_pAppMgr->m_pMgrRes->m_pfShowString(str_InputPublic, false);
 
-    for (key = 'Y'; key != '\r'; key = _getch())
+    for (key = 'Y'; key != '\r'; key = GetChar())
     {
         if ('Y' == key || 'y' == key)
         {

@@ -10,25 +10,23 @@
 //=============================================================================
 // 包含程序所需头文件
 //=============================================================================
-// 标准库头文件
+// 标准库头文件  
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <direct.h>
-#include <conio.h>
-#include <ctype.h>
 
 // 判断编译器版本
-#if _MSC_VER >= 1500
+#if _MSC_VER
 
-#define bnb_strcpy(buf, size, dsc)      strcpy_s(buf, size, dsc)
-#define bnb_fopen(file, name, mode)     fopen_s(&(file), name, mode)
+#define bnb_strcpy(buf, size, dsc)               strcpy_s(buf, size, dsc)
+#define bnb_fopen(file, name, mode)              fopen_s(&(file), name, mode)
 #define bnb_fread(buf, size, _byte, count, file) fread_s(buf, size, _byte, count, file)
     
 #else
 
-#define bnb_strcpy(buf, size, dsc)      strcpy(buf, dsc)
-#define bnb_fopen(file, name, mode)     file = fopen(name, mode)
+#define bnb_strcpy(buf, size, dsc)               strcpy(buf, dsc)
+#define bnb_fopen(file, name, mode)              file = fopen(name, mode)
 #define bnb_fread(buf, size, _byte, count, file) fread(buf, _byte, count, file)
 
 #endif

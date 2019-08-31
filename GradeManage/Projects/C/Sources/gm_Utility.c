@@ -1,7 +1,14 @@
-#include <conio.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+
+#ifdef _MSC_VER
+#include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#endif // _MSC_VER
+
 
 #include "gm_Utility.h"
 
@@ -11,6 +18,30 @@ const char g_cSeparator     = '-';
 const char g_cSymbolFill    = '*';
 const char g_cSymbolBlank   = '|';
 const char g_cSymbolSpace   = ' ';
+
+//-----------------------------------------------------------------------------
+
+char GetChar()
+{
+#ifdef _MSC_VER
+
+    return _getch();
+
+#else
+
+    struct termios old_attr, new_attr;
+    tcgetattr(STDIN_FILENO, &old_attr);
+    new_attr = old_attr;
+    new_attr.c_lflag &= ~(ECHO | ICANON);
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
+    char x = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &old_attr);
+
+    return x;
+
+#endif // _MSC_VER
+}
 
 //-----------------------------------------------------------------------------
 
@@ -39,7 +70,7 @@ size_t RuleInputString( char* str, size_t size, int eRule )
     size_t i = 0;
     char c = 0;
 
-    for (c = _getch(); '\r' != c; c = _getch())
+    for (c = GetChar(); '\r' != c; c = GetChar())
     {
         if ( '\b' == c )
         {
@@ -89,7 +120,7 @@ double RuleInputDouble( double dMax, unsigned int presition )
 
     char c = 0;
 
-    for (c = _getch(); '\r' != c ; c = _getch())
+    for (c = GetChar(); '\r' != c ; c = GetChar())
     {
         if ( '\b' == c && index > 0 )
         {
@@ -139,7 +170,7 @@ unsigned int RuleInputDate( char* str )
 
     char c = 0;
 
-    for (c = _getch(); ('\r' != c || count > index); c = _getch())
+    for (c = GetChar(); ('\r' != c || count > index); c = GetChar())
     {
         if ( '\b' == c && index > 0 )
         {
