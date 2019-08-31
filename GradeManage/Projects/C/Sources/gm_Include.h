@@ -16,8 +16,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef _MSC_VER
+#include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#include <stdbool.h>
+#endif // _MSC_VER
+
+
 // 判断编译器版本
-#if _MSC_VER
+#ifdef _MSC_VER
 
 #define bnb_strcpy(buf, size, dsc)               strcpy_s(buf, size, dsc)
 #define bnb_fopen(file, name, mode)              fopen_s(&(file), name, mode)

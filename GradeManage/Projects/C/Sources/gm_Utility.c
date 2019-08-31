@@ -1,23 +1,19 @@
-﻿#include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
-
-#ifdef _MSC_VER
-#include <conio.h>
-#else
-#include <termios.h>
-#include <unistd.h>
-#endif // _MSC_VER
-
-
-#include "gm_Utility.h"
+﻿
+#include "gm_Include.h"
 
 //-----------------------------------------------------------------------------
 
+#ifdef _MSC_VER
+const char g_cReturn        = '\r';
+#else
+const char g_cReturn        = '\n';
+#endif
 const char g_cSeparator     = '-';
 const char g_cSymbolFill    = '*';
 const char g_cSymbolBlank   = '|';
 const char g_cSymbolSpace   = ' ';
+
+static bool IsValidDate(int y, int m, int d);
 
 //-----------------------------------------------------------------------------
 
@@ -86,10 +82,10 @@ size_t RuleInputString( char* str, size_t size, int eRule )
             {
                 int alnum = eRule & strTy_HasAlnum;
 
-                if ( strTy_NotRule == alnum
-                    || strTy_HasDigit == alnum && isdigit(c)
-                    || strTy_HasAlpha == alnum && isalpha(c)
-                    || strTy_HasAlnum == alnum && isalnum(c) )
+                if (strTy_NotRule == alnum
+                    || (strTy_HasDigit == alnum && isdigit(c))
+                    || (strTy_HasAlpha == alnum && isalpha(c))
+                    || (strTy_HasAlnum == alnum && isalnum(c)))
                 {
                     str[i++] = c;
 
@@ -196,16 +192,10 @@ unsigned int RuleInputDate( char* str )
                 d = atoi(buf+8);
 
                 if ( (index < 4)
-                    || (5 == index) && ('0' == c || '1' == c)
-                    || (6 == index) && (m > 0 && m <= 12)
-                    || (8 == index) && ('0' == c || '1' == c || '2' == c || ('3' == c && 2 != m))
-                    || (9 == index) && (d > 0) &&
-                        (                                
-                            ((2 == m) && (((0 == y%4 && 0 != y%100) || 0 == y%400) ? (d <= 29) : ( d <= 28)))
-                            || ((4 == m || 6 == m || 9 == m || 11 == m ) && (d <= 30) )
-                            || ((1 == m || 3 == m || 5 == m || 7 == m || 8 == m || 10 == m || 12 == m) && (d <= 31))
-                        ) 
-                    )
+                    || ((5 == index) && ('0' == c || '1' == c))
+                    || ((6 == index) && (m > 0 && m <= 12))
+                    || ((8 == index) && ('0' == c || '1' == c || '2' == c || ('3' == c && 2 != m)))
+                    || ((9 == index) && IsValidDate(y, m, d)))
                 {
                     printf("%c", c);
                     ++index;
@@ -237,9 +227,19 @@ unsigned int RuleInputDate( char* str )
         }
     }
 
-    if ( str ) for (index = 0; str[index] = buf[index]; ++index);
+    if ( str ) bnb_strcpy(str, count, buf); // for (index = 0; str[index] = buf[index]; ++index);
 
     printf("\n");
 
     return ((unsigned int)atoi(buf));
+}
+
+bool IsValidDate(int y, int m, int d)
+{
+    return (0 < d) &&
+        (                                
+            ((2 == m) && (((0 == y%4 && 0 != y%100) || 0 == y%400) ? (d <= 29) : ( d <= 28)))
+            || ((4 == m || 6 == m || 9 == m || 11 == m ) && (d <= 30))
+            || ((1 == m || 3 == m || 5 == m || 7 == m || 8 == m || 10 == m || 12 == m) && (d <= 31))
+        );
 }

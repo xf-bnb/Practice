@@ -300,8 +300,8 @@ static bool InsertPerson( person** head, person* item, int eSort )
 
         while ( next )
         {
-            if ( Sort_Asce == type && ComparePerson(next, item, eSort) >= 0
-                || Sort_Desc == type && ComparePerson(next, item, eSort) <= 0 )
+            if ((Sort_Asce == type && ComparePerson(next, item, eSort) >= 0)
+                || (Sort_Desc == type && ComparePerson(next, item, eSort) <= 0))
             {
                 if ( next == *head )
                 {

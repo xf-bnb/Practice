@@ -15,6 +15,7 @@
 
 //-----------------------------------------------------------------------------
 
+extern const char g_cReturn;        // 回车符
 extern const char g_cSeparator;     // 分隔符
 extern const char g_cSymbolFill;    // 填充符
 extern const char g_cSymbolBlank;   // 间隔符
@@ -22,7 +23,7 @@ extern const char g_cSymbolSpace;   // 空白符
 
 //-----------------------------------------------------------------------------
 // 默认标准C不支持 bool 类型，如果编译器能够支持此类型，请注释下面一行。
-typedef enum { false, true } bool;  // 定义 bool 类型
+// typedef enum { false, true } bool;  // 定义 bool 类型
 
 //-----------------------------------------------------------------------------
 

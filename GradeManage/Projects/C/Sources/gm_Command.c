@@ -325,7 +325,7 @@ static int GetCommand()
 
     g_pAppMgr->m_pMgrRes->m_pfShowString(str_InputCmd, false);
 
-    for ( last = GetChar(); '\r' != last; last = GetChar())
+    for ( last = GetChar(); g_cReturn != last; last = GetChar())
     {
         key = last;
 
@@ -516,8 +516,8 @@ static int ModifyPassword()
         InputPassword(twopwd, str_AgainPassword);
 
         // 根据登陆状态校验旧密码正确性
-        if ( State_LoginPerson == g_pAppData->m_eState && StringCompare(oldpwd, g_pAppData->m_pCurPer->m_strPassword, true)
-            ||State_LoginAdmin == g_pAppData->m_eState && StringCompare(oldpwd, g_pAppData->m_pCurAdmin->m_strPassword, true) )
+        if ((State_LoginPerson == g_pAppData->m_eState && StringCompare(oldpwd, g_pAppData->m_pCurPer->m_strPassword, true))
+            || (State_LoginAdmin == g_pAppData->m_eState && StringCompare(oldpwd, g_pAppData->m_pCurAdmin->m_strPassword, true)))
         {
             return err_ErrorOldPwd;
         }
