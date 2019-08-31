@@ -21,7 +21,6 @@
 #else
 #include <termios.h>
 #include <unistd.h>
-#include <stdbool.h>
 #endif // _MSC_VER
 
 
@@ -40,6 +39,9 @@
 
 #endif
 
+//-----------------------------------------------------------------------------
+// 默认标准C不支持 bool 类型，如果编译器能够支持此类型，请注释下面一行。
+typedef enum { false, true } bool;  // 定义 bool 类型
 
 // 自定义头文件
 #include "gm_Utility.h"
