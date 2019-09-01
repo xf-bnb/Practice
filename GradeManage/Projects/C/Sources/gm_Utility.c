@@ -166,9 +166,9 @@ unsigned int RuleInputDate( char* str )
 
     char c = 0;
 
-    for (c = GetChar(); ('\r' != c || count > index); c = GetChar())
+    for (c = GetChar(); ('\r' != c || index < count); c = GetChar())
     {
-        if ( '\b' == c && index > 0 )
+        if ( '\b' == c && 0 < index )
         {
             buf[--index] = 0;
             printf("\b \b");
@@ -227,7 +227,7 @@ unsigned int RuleInputDate( char* str )
         }
     }
 
-    if ( str ) bnb_strcpy(str, count, buf); // for (index = 0; str[index] = buf[index]; ++index);
+    if ( str ) bnb_strcpy(str, Length_Date + 1, buf); // for (index = 0; str[index] = buf[index]; ++index);
 
     printf("\n");
 

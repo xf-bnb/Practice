@@ -420,7 +420,7 @@ static int CmdRegister()
     pPer->m_iScore = iScore;
     pPer->m_bPublic = bPublic;
     pPer->m_pNext = NULL;
-
+    
     g_pAppMgr->m_pMgrPer->m_pfAddPer(&g_pAppData->m_pHeadPer, pPer); // 将节点添加到链表中
 
     g_pAppData->m_eState = State_LoginPerson;
