@@ -28,14 +28,14 @@
             result
             (recur result (pop stack) (inc (last stack)))))))))
 
-(defn show "打印一个八皇后盘面"
+(defn show "打印一个盘面"
   [eq-map]
-  (let [line (vec (repeat (count eq-map) \·))]
+  (let [line (vec (repeat (count eq-map) \-))]
     (doseq [i eq-map]
       (apply println (assoc line i \*)))
     (println "===================")))
 
 (defn -main []
-  (let [eq-maps (permutation [0 1 2 3 4 5 6 7] 8 put-ok?)]
+  (let [eq-maps (permutation (range 8) 8 put-ok?)]
     (doseq [eq-map eq-maps] (show eq-map))
     (println "map count:" (count eq-maps))))

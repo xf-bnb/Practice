@@ -1,7 +1,7 @@
 ## Ignore Intellij Idea temporary
 target/
 .idea/
-.iml
+*.iml
 
 
 ## Ignore Visual Studio temporary files, build results, and
