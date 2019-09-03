@@ -19,14 +19,14 @@ bool PushStack(std::vector<int>& stack, int start, int end, _FuncType pfunc)
 
 // 对size个数字进行n的排列，排列需要符合pCheck函数检查，对于每一个符合的结果序列执行pFunc函数，返回排列的数量。
 template<typename _CheckType, typename _FuncType>
-unsigned int Permutation(unsigned int size, unsigned int n, _CheckType pCheck, _FuncType pFunc)
+unsigned int Permutation(unsigned int n, _CheckType pCheck, _FuncType pFunc)
 {
     unsigned int count = 0;
     std::vector<int> stack;
 
     for (unsigned int pos = 0; ;)
     {
-        if (PushStack(stack, pos, size, pCheck))
+        if (PushStack(stack, pos, n, pCheck))
         {
             if (n == stack.size())
             {
@@ -72,20 +72,20 @@ void Show(const std::vector<int>& vtr)
         for (unsigned int i = 0; i < vtr.size(); ++i)
         {
             if (v == i)
-                std::cout << " *";
+                std::cout << "* ";
             else
-                std::cout << " -";
+                std::cout << "- ";
         }
 
         std::cout << std::endl;
     }
 
-    std::cout << "=========================" << std::endl;
+    std::cout << "====================" << std::endl;
 }
 
 int main()
 {
-    unsigned int n = Permutation(8, 8, CheckMap, Show);
+    unsigned int n = Permutation(8, CheckMap, Show);
 
     std::cout << "map count: " << n << std::endl;
 
