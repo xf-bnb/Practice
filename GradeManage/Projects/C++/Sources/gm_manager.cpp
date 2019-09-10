@@ -1,17 +1,34 @@
-﻿#include "gm_manager.h"
+﻿
+#include <string>
+#include <vector>
+#include <algorithm>
 
-unsigned int Manager::LoadStudent()
+#include "gm_manager.h"
+
+bool Manager::Init()
+{
+    return Load();
+}
+
+bool Manager::Load()
 {
     return 0;
 }
 
-unsigned int Manager::SaveStudent()
+bool Manager::Save()
 {
     return 0;
+}
+
+bool Manager::Login(const std::string& strAccount, const std::string& password)
+{
+    m_eRole = Role::role_student;
+    return true;
 }
 
 bool Manager::AddStudent(const Student& student)
 {
+
     return false;
 }
 

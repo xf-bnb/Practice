@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Sources\gm_manager.h" />
     <ClInclude Include="..\..\Sources\gm_resource.h" />
+    <ClInclude Include="..\..\Sources\gm_ui.h" />
     <ClInclude Include="..\..\Sources\gm_user.h" />
     <ClInclude Include="..\..\Sources\gm_view.h" />
   </ItemGroup>
@@ -28,8 +29,10 @@
     <ClCompile Include="..\..\Sources\gm_main.cpp" />
     <ClCompile Include="..\..\Sources\gm_manager.cpp" />
     <ClCompile Include="..\..\Sources\gm_resource.cpp" />
-    <ClCompile Include="..\..\Sources\gm_user.cpp" />
     <ClCompile Include="..\..\Sources\gm_view.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Sources\gm_view.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
