@@ -1,23 +1,26 @@
 ﻿#pragma once
 
+
 class User
 {
 public:
 
     using string_type = std::string;
 
+    User() = default;
+
     User(const string_type& strAccount, const string_type& strPassword)
         : m_strAccount(strAccount)
         , m_strPassword(strPassword)
     { }
-
-    User(const User&) = default;
 
     void SetAccount(const string_type& strAccount) { m_strAccount = strAccount; }
     void SetPassword(const string_type& strPassword) { m_strPassword = strPassword; }
 
     const string_type& GetAccount() const { return m_strAccount; }
     const string_type& GetPassword() const { return m_strPassword; }
+
+    int CompareAccount(const string_type& strAccount) const;
 
 protected:
 
@@ -26,13 +29,32 @@ protected:
 
 };
 
-class Administrator : public User { using User::User; };
+class Administrator : public User
+{
+public:
+
+    using User::User;
+
+    explicit Administrator(const string_type& text) { Deserialize(text); }
+
+    string_type Serialize() const;
+    bool Deserialize(const string_type& text);
+
+};
 
 class Student : public User
 {
+public:
+
     enum _Right { right_public = 0x0001 };
 
-public:
+    enum _Attribute {
+        attr_account, attr_password, attr_name, attr_birthday, attr_score, attr_sex, attr_right, attr_max
+    };
+
+    Student() = default;
+
+    explicit Student(const string_type& text) { Deserialize(text); }
 
     Student(const string_type& strAccount, const string_type& strPassword, const string_type& strName, const string_type& strBirthday,
         unsigned int score, unsigned int sex, unsigned int right)
@@ -55,8 +77,12 @@ public:
     const string_type& GetBirthday() const { return m_strBirthday; }
     unsigned int GetScore() const { return m_uScore; }
     unsigned int GetSex() const { return m_uSex; }
+    unsigned int GetRight() const { return m_uRight; }
     bool IsPublic() const { return CheckRight(static_cast<unsigned int>(_Right::right_public)); }
     bool CheckRight(unsigned int right) const { return (right == (right & m_uRight)); }
+
+    string_type Serialize() const;
+    bool Deserialize(const string_type& text);
 
 private:
 

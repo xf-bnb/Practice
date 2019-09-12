@@ -120,7 +120,7 @@ void View::FilterByAccount() const
     std::string strInput;
 
     ViewStudents(_Mgr_.GetStudents([&strInput](const Student& student) {
-        return (IsVisiable(student) && (_CompareString<false>(strInput, student.GetAccount()) == 0)); }));
+        return (IsVisiable(student) && (0 == student.CompareAccount(strInput))); }));
 }
 
 void View::FilterByName() const
@@ -128,7 +128,7 @@ void View::FilterByName() const
     std::string strInput;
 
     ViewStudents(_Mgr_.GetStudents([&strInput](const Student& student) {
-        return (IsVisiable(student) && (_CompareString<true>(strInput, student.GetName()) == 0)); }));
+        return (IsVisiable(student) && student.GetName() == strInput); }));
 }
 
 void View::FilterByScore() const
@@ -144,7 +144,7 @@ void View::FilterByBirthday() const
     std::string strInput;
 
     ViewStudents(_Mgr_.GetStudents([&strInput](const Student& student) {
-        return (IsVisiable(student) && (_CompareString<true>(strInput, student.GetBirthday()) == 0)); }));
+        return (IsVisiable(student) && student.GetBirthday() == strInput); }));
 }
 
 void View::FilterBySex() const
@@ -164,22 +164,22 @@ void View::FilterByRight() const
 
 void View::SortByAccount() const
 {
-    _SortView([](const auto& a, const auto& b) { return (_CompareString<false>(a.GetAccount(), b.GetAccount()) < 0); });
+    _SortView([](const auto& a, const auto& b) { return (a.CompareAccount(b.GetAccount()) < 0); });
 }
 
 void View::SortByName() const
 {
-    _SortView([](const auto& a, const auto& b) { return (_CompareString<true>(a.GetName(), b.GetName()) < 0); });
+    _SortView([](const auto& a, const auto& b) { return (a.GetName() < b.GetName()); });
 }
 
 void View::SortByScore() const
 {
-    _SortView([](const auto& a, const auto& b) { return a.GetScore() < b.GetScore(); });
+    _SortView([](const auto& a, const auto& b) { return (a.GetScore() < b.GetScore()); });
 }
 
 void View::SortByBirthday() const
 {
-    _SortView([](const auto& a, const auto& b) { return (_CompareString<true>(a.GetBirthday(), b.GetBirthday()) < 0); });
+    _SortView([](const auto& a, const auto& b) { return (a.GetBirthday() < b.GetBirthday()); });
 }
 
 void View::ViewStudents(const std::vector<Student>& students) const

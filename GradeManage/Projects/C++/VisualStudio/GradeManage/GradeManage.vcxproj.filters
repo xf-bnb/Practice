@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\Sources\gm_view.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\gm_user.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Sources\gm_view.inl">

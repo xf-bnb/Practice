@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\Sources\gm_main.cpp" />
     <ClCompile Include="..\..\Sources\gm_manager.cpp" />
     <ClCompile Include="..\..\Sources\gm_resource.cpp" />
+    <ClCompile Include="..\..\Sources\gm_user.cpp" />
     <ClCompile Include="..\..\Sources\gm_view.cpp" />
   </ItemGroup>
   <ItemGroup>

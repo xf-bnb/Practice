@@ -79,24 +79,9 @@ inline void ShowWelcome() { OutputText("Hello, Welcome !"); }
 inline void ShowEnd() { OutputText("Bye bye"); }
 
 
-inline int _str_icmp(const char* _str1, const char* _str2)
-{
-    int _v1(0), _v2(0);
+// template<bool _Case> int _CompareString(const std::string& a, const std::string& b);
 
-    do {
-        if (0x40 < ((_v1 = (unsigned char)(*(_str1++)))) && (_v1 < 0x5b))
-            _v1 |= 0x20;
-
-        if (0x40 < ((_v2 = (unsigned char)(*(_str2++)))) && (_v2 < 0x5b))
-            _v2 |= 0x20;
-    } while (_v1 && (_v1 == _v2));
-
-    return (_v1 - _v2);
-}
-
-template<bool _Case> int _CompareString(const std::string& a, const std::string& b);
-
-template<> inline int _CompareString<true>(const std::string& a, const std::string& b) { return a.compare(b); }
-template<> inline int _CompareString<false>(const std::string& a, const std::string& b) { return (_str_icmp(a.c_str(), b.c_str())); }
+// template<> inline int _CompareString<true>(const std::string& a, const std::string& b) { return a.compare(b); }
+// template<> inline int _CompareString<false>(const std::string& a, const std::string& b) { return (_str_icmp(a.c_str(), b.c_str())); }
 
 inline bool IsVisiable(const Student& student) { return (_Mgr_.GetRole() == Manager::Role::role_admin || student.IsPublic()); }
