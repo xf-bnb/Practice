@@ -61,8 +61,11 @@ bool Manager::_LoadAdmin()
 
         return true;
     }
-
-    return false;
+    else
+    {
+        m_vtrAdministrators.emplace_back(Administrator("admin", "admin"));
+        return _SaveAdmin();
+    }
 }
 
 bool Manager::_SaveAdmin() const
