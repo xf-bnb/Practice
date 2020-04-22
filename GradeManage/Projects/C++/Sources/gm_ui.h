@@ -3,8 +3,6 @@ class UI final
 {
 public:
 
-    enum class _Language : unsigned char { Chinese, English };
-
     enum class _Menu : unsigned char {
         menu_main,
         menu_student,
@@ -83,12 +81,7 @@ public:
         item_lang_max
     };
 
-    _Language _eLanguage{ _Language::Chinese };
-    
 public:
-
-    _Language _GetLanguage() const { return _eLanguage; }
-    void _SetLanguage(_Language lang) { _eLanguage = lang; }
 
     void _ShowMenuItem(unsigned int index, unsigned int id) const;
     void _ShowItem(unsigned int id) const;

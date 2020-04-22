@@ -1,10 +1,6 @@
 ﻿#pragma once
 
-enum _ResType {
-    lang_chinese, lang_english, ResTypeMax
-};
-
-enum _ResID
+enum ResID
 {
     str_Welcome,                        // 欢迎进入信息管理系统！
     str_ThankYou,                       // 谢谢使用，再见！
@@ -74,25 +70,32 @@ enum _ResID
 class Resource final
 {
     using string_type = std::string;
+    using res_text_type = std::array<string_type, static_cast<std::size_t>(ResID::ResMax)>;
+
+public:
+
+    enum class LanguageType : unsigned char { Chinese, English, LangMax };
+
+    static Resource& GetInstance() { static Resource res; return res; }
+
+    bool Init();
+
+    LanguageType GetLanguage() const { return _language; }
+    bool ChangeLanguage(LanguageType lang);
+
+    const string_type& GetText(ResID resId) const { return _res_text[static_cast<std::size_t>(resId)]; }
+
+private:
 
     Resource() = default;
     Resource(const Resource&) = delete;
     Resource& operator = (const Resource&) = delete;
 
-public:
+    LanguageType _language{ LanguageType::Chinese };
 
-    static Resource& GetInstance() { static Resource res; return res; }
+    res_text_type _res_text;
 
-    using string_list = std::vector<string_type>;
-
-    bool Init();
-    unsigned int Load();
-
-    const string_type& GetRes(unsigned int resType, unsigned int resId) const { return m_Res[resType][resId]; }
-
-private:
-
-    string_list m_Res[ResTypeMax];
+    bool LoadString(const char* file);
 
 };
 

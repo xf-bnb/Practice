@@ -65,10 +65,10 @@ void View::SwitchLanguage() const
     switch (static_cast<UI::_MenuLang>(_AcceptCommand(_ui._ShowMenu(UI::_Menu::menu_language))))
     {
     case UI::_MenuLang::item_Chinese:
-        _ui._eLanguage = UI::_Language::Chinese;
+        _Res_.ChangeLanguage(Resource::LanguageType::Chinese);
         break;
     case UI::_MenuLang::item_English:
-        _ui._eLanguage = UI::_Language::English;
+        _Res_.ChangeLanguage(Resource::LanguageType::English);
         break;
     default:
         break;
@@ -228,10 +228,10 @@ void View::UI::_ShowMenuItem(unsigned int index, unsigned int id) const
 
 void View::UI::_ShowItem(unsigned int id) const
 {
-    OutputText<true>(static_cast<unsigned int>(_eLanguage), id);
+    OutputText<true>(id);
 }
 
 void View::UI::_ShowLabel(unsigned int id) const
 {
-    OutputText<false>(static_cast<unsigned int>(_eLanguage), id);
+    OutputText<false>(id);
 }

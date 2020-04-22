@@ -14,27 +14,27 @@ const char g_cReturn = '\r';
 const char g_cReturn = '\n';
 #endif
 
-template <bool _Return = true> void OutputText(const std::string&);
+template <bool _Return = true> void OutputText(const char*);
 
-template <> inline void OutputText<false>(const std::string& text)
+template <> inline void OutputText<false>(const char* text)
 {
     std::cout << text;
 }
 
-template <> inline void OutputText<true>(const std::string& text)
+template <> inline void OutputText<true>(const char* text)
 {
     OutputText<false>(text);
     std::cout << std::endl;
 }
 
-template <bool _Return = true> inline void OutputText(const char* text)
+template <bool _Return = true> inline void OutputText(const std::string& text)
 {
-    OutputText<_Return>(std::string(text));
+    OutputText<_Return>(text.data());
 }
 
-template <bool _Return = true> inline void OutputText(unsigned int langType, unsigned int resId)
+template <bool _Return = true> inline void OutputText(unsigned int resId)
 {
-    OutputText<_Return>(Resource::GetInstance().GetRes(langType, resId));
+    OutputText<_Return>(Resource::GetInstance().GetText(static_cast<ResID>(resId)));
 }
 
 //-----------------------------------------------------------------------------

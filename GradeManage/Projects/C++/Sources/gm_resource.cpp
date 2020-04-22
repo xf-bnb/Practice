@@ -1,42 +1,58 @@
 ﻿
 #include <vector>
 #include <string>
+#include <array>
 #include <fstream>
 
 #include "gm_resource.h"
 
-static const std::string ResFiles[_ResType::ResTypeMax]{
-    "../Resources/lang_chinese.txt",
-    "../Resources/lang_english.txt"
+static const char* ResFiles[static_cast<std::size_t>(Resource::LanguageType::LangMax)]{
+    "resources/lang_chinese.txt",
+    "resources/lang_english.txt"
 };
 
 bool Resource::Init()
 {
-    return Load() == (_ResID::ResMax * _ResType::ResTypeMax);
+    return (LoadString(ResFiles[static_cast<std::size_t>(_language)]));
 }
 
-unsigned int Resource::Load()
+bool Resource::ChangeLanguage(LanguageType lang)
 {
-    unsigned int n = 0;
-
-    for (unsigned int i = 0; i < ResTypeMax; ++i)
+    if (_language != lang)
     {
-        std::ifstream fin(ResFiles[i], std::ios::in);
-        if (fin.is_open())
+        if (LoadString(ResFiles[static_cast<std::size_t>(lang)]))
         {
-            for (unsigned int id = 0; id < ResMax; ++id)
-            {
-                string_type str;
-                if (!std::getline(fin, str))
-                    break;
-
-                m_Res[i].push_back(str);
-                ++n;
-            }
-
-            fin.close();
+            _language = lang;
+            return true;
         }
     }
 
-    return n;
+    return false;
+}
+
+bool Resource::LoadString(const char* file)
+{
+    std::ifstream fin(file);
+    if (fin.is_open())
+    {
+        std::vector<string_type> strs;
+        for (std::size_t id = 0; id < ResID::ResMax; ++id)
+        {
+            string_type str;
+            if (!std::getline(fin, str))
+                break;
+
+            strs.emplace_back(str);
+        }
+
+        fin.close();
+
+        if (ResID::ResMax == strs.size())
+        {
+            std::copy(strs.begin(), strs.end(), _res_text.begin());
+            return true;
+        }
+    }
+
+    return false;
 }
