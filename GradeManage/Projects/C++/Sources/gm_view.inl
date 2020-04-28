@@ -6,6 +6,26 @@
 #include <termios.h>
 #include <unistd.h>
 #include "gm_ui.h"
+
+class _tc_echo_lock
+{
+    struct termios _tc_attr;
+
+public:
+    _tc_echo_lock() {
+        tcgetattr(STDIN_FILENO, &_tc_attr);
+
+        struct termios new_attr = _tc_attr;
+        new_attr.c_lflag &= ~(ECHO | ICANON);
+        tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
+    }
+
+    ~_tc_echo_lock() {
+        tcsetattr(STDIN_FILENO, TCSANOW, &_tc_attr);
+    }
+};
+
+
 #endif // _MSC_VER
 
 #ifdef _MSC_VER
@@ -42,22 +62,10 @@ template <bool _Return = true> inline void OutputText(unsigned int resId)
 inline char GetChar()
 {
 #ifdef _MSC_VER
-
     return _getch();
-
 #else
-
-    struct termios old_attr, new_attr;
-    tcgetattr(STDIN_FILENO, &old_attr);
-    new_attr = old_attr;
-    new_attr.c_lflag &= ~(ECHO | ICANON);
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
-    char x = getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &old_attr);
-
-    return x;
-
+    _tc_echo_lock _lock;
+    return getchar();
 #endif // _MSC_VER
 }
 
@@ -75,8 +83,23 @@ inline std::string InputAccount()
     return { };
 }
 
-inline void ShowWelcome() { OutputText("Hello, Welcome !"); }
-inline void ShowEnd() { OutputText("Bye bye"); }
+inline void ShowWelcome() {
+    std::cout << "********************************************************************************" << std::endl;
+    std::cout << "*                                                                              *" << std::endl;
+    std::cout << "*                                                                              *" << std::endl;
+    std::cout << "*                     Welcome to Student Manage System !                       *" << std::endl;
+    std::cout << "*                                                                              *" << std::endl;
+    std::cout << "*                                                                              *" << std::endl;
+    std::cout << "********************************************************************************" << std::endl;
+    std::cout << std::endl << std::endl << std::endl;
+}
+
+inline void ShowEnd() {
+    std::cout << "********************************************************************************" << std::endl;
+    std::cout << "*                                    Bye bye !                                 *" << std::endl;
+    std::cout << "********************************************************************************" << std::endl;
+    std::cout << std::endl;
+}
 
 
 // template<bool _Case> int _CompareString(const std::string& a, const std::string& b);
@@ -84,4 +107,4 @@ inline void ShowEnd() { OutputText("Bye bye"); }
 // template<> inline int _CompareString<true>(const std::string& a, const std::string& b) { return a.compare(b); }
 // template<> inline int _CompareString<false>(const std::string& a, const std::string& b) { return (_str_icmp(a.c_str(), b.c_str())); }
 
-inline bool IsVisiable(const Student& student) { return (_Mgr_.GetRole() == Manager::Role::role_admin || student.IsPublic()); }
+inline bool IsVisiable(const Student& student) { return (Manager::GetInstance().GetRole() == Manager::Role::role_admin || student.IsPublic()); }

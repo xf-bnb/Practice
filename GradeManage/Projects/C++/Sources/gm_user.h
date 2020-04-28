@@ -10,22 +10,20 @@ public:
     User() = default;
 
     User(const string_type& strAccount, const string_type& strPassword)
-        : m_strAccount(strAccount)
-        , m_strPassword(strPassword)
+        : account(strAccount), password(strPassword)
     { }
 
-    void SetAccount(const string_type& strAccount) { m_strAccount = strAccount; }
-    void SetPassword(const string_type& strPassword) { m_strPassword = strPassword; }
+    void SetAccount(const string_type& strAccount) { account = strAccount; }
+    void SetPassword(const string_type& strPassword) { password = strPassword; }
 
-    const string_type& GetAccount() const { return m_strAccount; }
-    const string_type& GetPassword() const { return m_strPassword; }
+    const string_type& GetAccount() const { return account; }
+    const string_type& GetPassword() const { return password; }
 
     int CompareAccount(const string_type& strAccount) const;
 
 protected:
 
-    string_type m_strAccount;
-    string_type m_strPassword;
+    string_type account, password;
 
 };
 
@@ -35,10 +33,8 @@ public:
 
     using User::User;
 
-    explicit Administrator(const string_type& text) { Deserialize(text); }
-
-    string_type Serialize() const;
-    bool Deserialize(const string_type& text);
+    static string_type ToString(const Administrator& admin);
+    static Administrator FromString(const string_type& text);
 
 };
 
@@ -53,8 +49,6 @@ public:
     };
 
     Student() = default;
-
-    explicit Student(const string_type& text) { Deserialize(text); }
 
     Student(const string_type& strAccount, const string_type& strPassword, const string_type& strName, const string_type& strBirthday,
         unsigned int score, unsigned int sex, unsigned int right)
@@ -81,8 +75,8 @@ public:
     bool IsPublic() const { return CheckRight(static_cast<unsigned int>(_Right::right_public)); }
     bool CheckRight(unsigned int right) const { return (right == (right & m_uRight)); }
 
-    string_type Serialize() const;
-    bool Deserialize(const string_type& text);
+    static string_type ToString(const Student& student);
+    static Student FromString(const string_type& text);
 
 private:
 

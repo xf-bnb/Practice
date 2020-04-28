@@ -1,4 +1,5 @@
 ﻿
+#include <array>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -23,25 +24,56 @@ bool View::Show() const
 
 void View::MainPage() const
 {
-    MenuLoop(UI::_Menu::menu_main);
+    MenuLoop(UI::Menu::menu_main);
 
+}
+
+template<typename FuncType>
+std::string RuleInputString(size_t size, bool mask, FuncType func)
+{
+    size_t i = 0;
+    char c = 0;
+
+    for (c = GetChar(); '\r' != c; c = GetChar())
+    {
+        if ('\b' == c)
+        {
+            if (0 < i)
+            {
+                str[--i] = 0;
+                printf("\b%c\b", g_cSymbolSpace);
+            }
+        }
+        else
+        {
+            if (i < size && func(c))
+            {
+                str[i++] = c;
+                std::cout << (mask ? g_cSymbolFill : c);
+            }
+        }
+    }
+
+    printf("\n");
+
+    return i;
 }
 
 void View::LoginPage() const
 {
     std::string strAccount, strPassword;
 
-    if (_Mgr_.Login(strAccount, strPassword))
+    if (Manager::GetInstance().Login(strAccount, strPassword))
     {
-        OutputText<true>("登陆成功");
+        OutputText<true>(str_SuccessLogin);
 
-        switch (_Mgr_.GetRole())
+        switch (Manager::GetInstance().GetRole())
         {
         case Manager::Role::role_student:
-            MenuLoop(UI::_Menu::menu_student);
+            MenuLoop(UI::Menu::menu_student);
             break;
         case Manager::Role::role_admin:
-            MenuLoop(UI::_Menu::menu_admin);
+            MenuLoop(UI::Menu::menu_admin);
             break;
         default:
             break;
@@ -49,7 +81,7 @@ void View::LoginPage() const
     }
     else
     {
-
+        OutputText<true>(str_ErrorLogin);
     }
 }
 
@@ -57,18 +89,18 @@ void View::RegisterPage() const
 {
     _ui._ShowItem(str_SuccessRegister);
 
-    MenuLoop(UI::_Menu::menu_student);
+    MenuLoop(UI::Menu::menu_student);
 }
 
 void View::SwitchLanguage() const
 {
-    switch (static_cast<UI::_MenuLang>(_AcceptCommand(_ui._ShowMenu(UI::_Menu::menu_language))))
+    switch (static_cast<UI::MenuLang>(_AcceptCommand(_ui._ShowMenu(UI::Menu::menu_language))))
     {
-    case UI::_MenuLang::item_Chinese:
-        _Res_.ChangeLanguage(Resource::LanguageType::Chinese);
+    case UI::MenuLang::item_chinese:
+        Resource::GetInstance().ChangeLanguage(Resource::LanguageType::Chinese);
         break;
-    case UI::_MenuLang::item_English:
-        _Res_.ChangeLanguage(Resource::LanguageType::English);
+    case UI::MenuLang::item_english:
+        Resource::GetInstance().ChangeLanguage(Resource::LanguageType::English);
         break;
     default:
         break;
@@ -77,27 +109,27 @@ void View::SwitchLanguage() const
 
 void View::SortPage() const
 {
-    MenuLoop(UI::_Menu::menu_sort);
+    MenuLoop(UI::Menu::menu_sort);
 }
 
 void View::FilterPage() const
 {
-    MenuLoop(UI::_Menu::menu_filter);
+    MenuLoop(UI::Menu::menu_filter);
 }
 
 void View::CancelPage() const
 {
-    OutputText<true>("注销成功");
+    OutputText<true>(str_SuccessLogout);
 }
 
 void View::ModifyPassword() const
 {
-    OutputText<true>("修改密码成功");
+    OutputText<true>(str_SuccessModifyPwd);
 }
 
 void View::ModifyRight() const
 {
-    OutputText<true>("修改权限成功");
+    OutputText<true>(str_SuccessModifyPub);
 }
 
 void View::ModifyScore() const
@@ -107,19 +139,19 @@ void View::ModifyScore() const
 
 void View::DeletePage() const
 {
-    OutputText<true>("删除用户成功");
+    OutputText<true>(str_SuccessDelete);
 }
 
 void View::ViewPage() const
 {
-    MenuLoop(UI::_Menu::menu_view);
+    MenuLoop(UI::Menu::menu_view);
 }
 
 void View::FilterByAccount() const
 {
     std::string strInput;
 
-    ViewStudents(_Mgr_.GetStudents([&strInput](const Student& student) {
+    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const Student& student) {
         return (IsVisiable(student) && (0 == student.CompareAccount(strInput))); }));
 }
 
@@ -127,7 +159,7 @@ void View::FilterByName() const
 {
     std::string strInput;
 
-    ViewStudents(_Mgr_.GetStudents([&strInput](const Student& student) {
+    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const Student& student) {
         return (IsVisiable(student) && student.GetName() == strInput); }));
 }
 
@@ -135,7 +167,7 @@ void View::FilterByScore() const
 {
     unsigned int uInput;
 
-    ViewStudents(_Mgr_.GetStudents([&uInput](const Student& student) {
+    ViewStudents(Manager::GetInstance().GetStudents([&uInput](const Student& student) {
         return (IsVisiable(student) && uInput == student.GetScore()); }));
 }
 
@@ -143,7 +175,7 @@ void View::FilterByBirthday() const
 {
     std::string strInput;
 
-    ViewStudents(_Mgr_.GetStudents([&strInput](const Student& student) {
+    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const Student& student) {
         return (IsVisiable(student) && student.GetBirthday() == strInput); }));
 }
 
@@ -151,7 +183,7 @@ void View::FilterBySex() const
 {
     unsigned int uInput;
 
-    ViewStudents(_Mgr_.GetStudents([&uInput](const Student& student) {
+    ViewStudents(Manager::GetInstance().GetStudents([&uInput](const Student& student) {
         return (IsVisiable(student) && uInput == student.GetSex()); }));
 }
 
@@ -159,7 +191,7 @@ void View::FilterByRight() const
 {
     bool bInput;
 
-    ViewStudents(_Mgr_.GetStudents([&bInput](const Student& student) { return bInput == IsVisiable(student); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&bInput](const Student& student) { return bInput == IsVisiable(student); }));
 }
 
 void View::SortByAccount() const
@@ -189,6 +221,7 @@ void View::ViewStudents(const std::vector<Student>& students) const
 
 unsigned int View::_AcceptCommand(unsigned int nMax) const
 {
+    std::cout << std::endl;
     _ui._ShowLabel(str_InputCmd);
 
     char key = '0';

@@ -19,11 +19,11 @@ private:
     template<typename _LessThan>
     void _SortView(_LessThan pfunc) const
     {
-        auto item = static_cast<UI::_MenuOrder>(_AcceptCommand(_ui._ShowMenu(UI::_Menu::menu_order)));
-        if (UI::_MenuOrder::item_back < item && item < UI::_MenuOrder::item_order_max)
+        auto item = static_cast<UI::MenuOrder>(_AcceptCommand(_ui._ShowMenu(UI::Menu::menu_order)));
+        if (UI::MenuOrder::item_back < item && item < UI::MenuOrder::item_order_max)
         {
-            auto students = _Mgr_.GetStudents([](const Student& student) { return IsVisiable(student); });
-            if (item == UI::_MenuOrder::item_Ascending)
+            auto students = Manager::GetInstance().GetStudents([](const auto& student) { return IsVisiable(student); });
+            if (item == UI::MenuOrder::item_ascending)
                 std::sort(students.begin(), students.end(), pfunc);
             else
                 std::sort(students.begin(), students.end(), [&pfunc](const auto& a, const auto& b) { return pfunc(b, a); });
@@ -33,7 +33,7 @@ private:
     }
 
     template<unsigned int n>
-    void _MenuLoop(UI::_Menu menuId, const handler_type (&functions)[n]) const
+    void _MenuLoop(UI::Menu menuId, const handler_type (&functions)[n]) const
     {
         for (;;)
         {
@@ -48,26 +48,26 @@ private:
         }
     }
 
-    void MenuLoop(UI::_Menu menuId) const
+    void MenuLoop(UI::Menu menuId) const
     {
         switch (menuId)
         {
-        case UI::_Menu::menu_main:
+        case UI::Menu::menu_main:
             _MenuLoop(menuId, { &View::LoginPage, &View::RegisterPage, &View::SwitchLanguage });
             break;
-        case UI::_Menu::menu_student:
+        case UI::Menu::menu_student:
             _MenuLoop(menuId, { &View::ViewPage, &View::ModifyPassword, &View::ModifyRight, &View::CancelPage });
             break;
-        case UI::_Menu::menu_admin:
+        case UI::Menu::menu_admin:
             _MenuLoop(menuId, { &View::ViewPage, &View::ModifyPassword, &View::DeletePage });
             break;
-        case UI::_Menu::menu_view:
+        case UI::Menu::menu_view:
             _MenuLoop(menuId, { &View::SortPage, &View::FilterPage });
             break;
-        case UI::_Menu::menu_sort:
+        case UI::Menu::menu_sort:
             _MenuLoop(menuId, { &View::SortByAccount, &View::SortByName, &View::SortByScore, &View::SortByBirthday });
             break;
-        case UI::_Menu::menu_filter:
+        case UI::Menu::menu_filter:
             _MenuLoop(menuId, { &View::FilterByAccount, &View::FilterByName, &View::FilterByScore, &View::FilterByBirthday, &View::FilterBySex, &View::FilterByRight });
             break;
         default:

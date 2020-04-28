@@ -9,7 +9,7 @@ public:
     enum Role { role_unknow, role_student, role_admin };
 
     Role m_eRole{ Role::role_unknow };
-    std::string m_strAccount;
+    std::string account;
 
 private:
 
@@ -35,7 +35,7 @@ public:
     bool Login(const std::string& strAccount, const std::string& strPassword);
 
     Role GetRole() const { return m_eRole; }
-    const std::string& GetLoginAccount() const { return m_strAccount; }
+    const std::string& GetLoginAccount() const { return account; }
 
     bool IsExisting(const std::string& strAccount) const;
     bool AddStudent(const Student& student);
@@ -55,5 +55,3 @@ public:
     }
 
 };
-
-#define _Mgr_ Manager::GetInstance()

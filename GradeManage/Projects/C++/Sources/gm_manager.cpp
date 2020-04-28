@@ -22,7 +22,7 @@ bool Manager::_LoadStudent()
     {
         std::string text;
         while (std::getline(fin, text))
-            m_vtrStudents.emplace_back(Student(text));
+            m_vtrStudents.emplace_back(Student::FromString(text));
 
         fin.close();
 
@@ -38,7 +38,7 @@ bool Manager::_SaveStudent() const
     if (fout.is_open())
     {
         for (auto student : m_vtrStudents)
-            fout << student.Serialize() << std::endl;
+            fout << Student::ToString(student) << std::endl;
 
         fout.close();
 
@@ -55,7 +55,7 @@ bool Manager::_LoadAdmin()
     {
         std::string text;
         while (std::getline(fin, text))
-            m_vtrAdministrators.emplace_back(Administrator(text));
+            m_vtrAdministrators.emplace_back(Administrator::FromString(text));
 
         fin.close();
 
@@ -74,7 +74,7 @@ bool Manager::_SaveAdmin() const
     if (fout.is_open())
     {
         for (auto admin : m_vtrAdministrators)
-            fout << admin.Serialize() << std::endl;
+            fout << Administrator::ToString(admin) << std::endl;
 
         fout.close();
 
@@ -92,7 +92,7 @@ bool Manager::Login(const std::string& strAccount, const std::string& strPasswor
         {
             if (admin.GetPassword() == strPassword)
             {
-                m_strAccount = strAccount;
+                account = strAccount;
                 m_eRole = Role::role_admin;
 
                 return true;
@@ -108,7 +108,7 @@ bool Manager::Login(const std::string& strAccount, const std::string& strPasswor
         {
             if (student.GetPassword() == strPassword)
             {
-                m_strAccount = strAccount;
+                account = strAccount;
                 m_eRole = Role::role_student;
 
                 return true;
