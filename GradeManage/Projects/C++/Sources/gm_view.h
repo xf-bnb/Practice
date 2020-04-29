@@ -33,7 +33,7 @@ private:
     }
 
     template<unsigned int n>
-    void _MenuLoop(UI::Menu menuId, const handler_type (&functions)[n]) const
+    void _MenuLoop(UI::Menu menuId, const handler_type(&functions)[n]) const
     {
         for (;;)
         {
@@ -94,11 +94,16 @@ private:
     void FilterByBirthday() const;
     void FilterByRight() const;
     void FilterBySex() const;
-    void SortByAccount() const;
-    void SortByName() const;
-    void SortByScore() const;
-    void SortByBirthday() const;
 
-    void ViewStudents(const std::vector<Student>& students) const;
+    void SortByAccount() const  { _SortView(LessThan<attr_e::attr_account>); }
+    void SortByName() const     { _SortView(LessThan<attr_e::attr_name>); }
+    void SortByScore() const    { _SortView(LessThan<attr_e::attr_score>); }
+    void SortByBirthday() const { _SortView(LessThan<attr_e::attr_birthday>); }
+
+    void ViewStudents(const std::vector<student_t>& students) const;
+
+    static bool IsVisiable(const student_t& student) {
+        return IsPublic(std::get<attr_e::attr_right>(student));
+    }
 
 };

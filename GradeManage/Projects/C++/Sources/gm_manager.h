@@ -13,8 +13,8 @@ public:
 
 private:
 
-    std::vector<Student> m_vtrStudents;
-    std::vector<Administrator> m_vtrAdministrators;
+    std::vector<student_t> m_vtrStudents;
+    std::vector<admin_t> m_vtrAdministrators;
 
     Manager() = default;
     Manager(const Manager&) = delete;
@@ -38,15 +38,18 @@ public:
     const std::string& GetLoginAccount() const { return account; }
 
     bool IsExisting(const std::string& strAccount) const;
-    bool AddStudent(const Student& student);
+    bool AddStudent(const student_t& student);
     bool RemoveStudent(const std::string& strAccount);
-    bool UpdateStudent(const Student& student, Student::_Attribute attr);
-    const std::vector<Student>& GetStudents() const { return m_vtrStudents; }
+    bool UpdateStudent(const student_t& student, attr_e attr);
+    const std::vector<student_t>& GetStudents() const { return m_vtrStudents; }
 
     template<typename _FuncType>
-    std::vector<Student> GetStudents(_FuncType pf) const
+    std::vector<student_t> GetStudents(_FuncType pf) const
     {
-        std::vector<Student> students;
+        if (Role::role_admin == m_eRole)
+            return GetStudents();
+
+        std::vector<student_t> students;
         for (const auto& student : m_vtrStudents)
             if (pf(student))
                 students.push_back(student);

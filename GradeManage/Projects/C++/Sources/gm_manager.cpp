@@ -22,7 +22,7 @@ bool Manager::_LoadStudent()
     {
         std::string text;
         while (std::getline(fin, text))
-            m_vtrStudents.emplace_back(Student::FromString(text));
+            m_vtrStudents.emplace_back(StringToStudent(text));
 
         fin.close();
 
@@ -38,7 +38,7 @@ bool Manager::_SaveStudent() const
     if (fout.is_open())
     {
         for (auto student : m_vtrStudents)
-            fout << Student::ToString(student) << std::endl;
+            fout << StudentToString(student) << std::endl;
 
         fout.close();
 
@@ -55,7 +55,7 @@ bool Manager::_LoadAdmin()
     {
         std::string text;
         while (std::getline(fin, text))
-            m_vtrAdministrators.emplace_back(Administrator::FromString(text));
+            m_vtrAdministrators.emplace_back(StringToAdmin(text));
 
         fin.close();
 
@@ -63,7 +63,7 @@ bool Manager::_LoadAdmin()
     }
     else
     {
-        m_vtrAdministrators.emplace_back(Administrator("admin", "admin"));
+        m_vtrAdministrators.emplace_back(admin_t("admin", "admin"));
         return _SaveAdmin();
     }
 }
@@ -74,7 +74,7 @@ bool Manager::_SaveAdmin() const
     if (fout.is_open())
     {
         for (auto admin : m_vtrAdministrators)
-            fout << Administrator::ToString(admin) << std::endl;
+            fout << AdminToString(admin) << std::endl;
 
         fout.close();
 
@@ -88,9 +88,9 @@ bool Manager::Login(const std::string& strAccount, const std::string& strPasswor
 {
     for (auto admin : m_vtrAdministrators)
     {
-        if (0 == admin.CompareAccount(strAccount))
+        if (MatchAccount(admin, strAccount))
         {
-            if (admin.GetPassword() == strPassword)
+            if (MatchPassword(admin, strPassword))
             {
                 account = strAccount;
                 m_eRole = Role::role_admin;
@@ -104,9 +104,9 @@ bool Manager::Login(const std::string& strAccount, const std::string& strPasswor
 
     for (auto student : m_vtrStudents)
     {
-        if (0 == student.CompareAccount(strAccount))
+        if (MatchAccount(student, strAccount))
         {
-            if (student.GetPassword() == strPassword)
+            if (MatchPassword(student, strPassword))
             {
                 account = strAccount;
                 m_eRole = Role::role_student;
@@ -124,13 +124,13 @@ bool Manager::Login(const std::string& strAccount, const std::string& strPasswor
 bool Manager::IsExisting(const std::string& strAccount) const
 {
     for (auto student : m_vtrStudents)
-        if (0 == student.CompareAccount(strAccount))
+        if (MatchAccount(student, strAccount))
             return true;
 
     return false;
 }
 
-bool Manager::AddStudent(const Student& student)
+bool Manager::AddStudent(const student_t& student)
 {
     m_vtrStudents.push_back(student);
 
@@ -141,7 +141,7 @@ bool Manager::RemoveStudent(const std::string& strAccount)
 {
     for (auto iter = m_vtrStudents.begin(); iter != m_vtrStudents.end(); ++iter)
     {
-        if (0 == iter->CompareAccount(strAccount))
+        if (MatchAccount(*iter, strAccount))
         {
             m_vtrStudents.erase(iter);
             return true;
@@ -151,34 +151,31 @@ bool Manager::RemoveStudent(const std::string& strAccount)
     return false;
 }
 
-bool Manager::UpdateStudent(const Student& student, Student::_Attribute attr)
+bool Manager::UpdateStudent(const student_t& student, attr_e attr)
 {
-    for (Student& item : m_vtrStudents)
+    for (auto& [account, password, name, birthday, score, sex, right] : m_vtrStudents)
     {
-        if (0 == item.CompareAccount(student.GetAccount()))
+        if (MatchAccount(student, account))
         {
             switch (attr)
             {
-            case Student::attr_account:
-                item.SetAccount(student.GetAccount());
+            case attr_e::attr_password:
+                password = std::get<attr_e::attr_password>(student);
                 return true;
-            case Student::attr_password:
-                item.SetPassword(student.GetPassword());
+            case attr_e::attr_name:
+                name = std::get<attr_e::attr_name>(student);
                 return true;
-            case Student::attr_name:
-                item.SetName(student.GetName());
+            case attr_e::attr_birthday:
+                birthday = std::get<attr_e::attr_birthday>(student);
                 return true;
-            case Student::attr_birthday:
-                item.SetBirthday(student.GetBirthday());
+            case attr_e::attr_score:
+                score = std::get<attr_e::attr_score>(student);
                 return true;
-            case Student::attr_score:
-                item.SetScore(student.GetScore());
+            case attr_e::attr_sex:
+                sex = std::get<attr_e::attr_sex>(student);
                 return true;
-            case Student::attr_sex:
-                item.SetSex(student.GetSex());
-                return true;
-            case Student::attr_right:
-                item.SetRight(student.GetRight());
+            case attr_e::attr_right:
+                right = std::get<attr_e::attr_right>(student);
                 return true;
             default:
                 return false;

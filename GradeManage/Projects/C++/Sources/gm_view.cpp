@@ -29,39 +29,51 @@ void View::MainPage() const
 }
 
 template<typename FuncType>
-std::string RuleInputString(size_t size, bool mask, FuncType func)
+string_t RuleInputString(size_t n, bool mask, FuncType func)
 {
     size_t i = 0;
-    char c = 0;
+    char str[0x40]{ 0 };
 
-    for (c = GetChar(); '\r' != c; c = GetChar())
+    for (char c = GetChar(); g_cReturn != c; c = GetChar())
     {
         if ('\b' == c)
         {
             if (0 < i)
             {
                 str[--i] = 0;
-                printf("\b%c\b", g_cSymbolSpace);
+                std::cout << "\b \b";
             }
         }
         else
         {
-            if (i < size && func(c))
+            if (i < n && func(c))
             {
                 str[i++] = c;
-                std::cout << (mask ? g_cSymbolFill : c);
+                std::cout << (mask ? '*' : c);
             }
         }
     }
 
-    printf("\n");
+    std::cout << std::endl;
 
-    return i;
+    return { str, i };
+}
+
+inline string_t InputAccount()
+{
+
+    return RuleInputString(MaxLengthAccount, false, std::isprint);
+}
+
+inline string_t InputPassword()
+{
+    return string_t();
 }
 
 void View::LoginPage() const
 {
-    std::string strAccount, strPassword;
+    auto strAccount = InputAccount();
+    auto strPassword = InputPassword();
 
     if (Manager::GetInstance().Login(strAccount, strPassword))
     {
@@ -151,70 +163,50 @@ void View::FilterByAccount() const
 {
     std::string strInput;
 
-    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const Student& student) {
-        return (IsVisiable(student) && (0 == student.CompareAccount(strInput))); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const student_t& student) {
+        return (IsVisiable(student) && (MatchAccount(student, strInput))); }));
 }
 
 void View::FilterByName() const
 {
     std::string strInput;
 
-    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const Student& student) {
-        return (IsVisiable(student) && student.GetName() == strInput); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const student_t& student) {
+        return (IsVisiable(student) && std::get<attr_e::attr_name>(student) == strInput); }));
 }
 
 void View::FilterByScore() const
 {
     unsigned int uInput;
 
-    ViewStudents(Manager::GetInstance().GetStudents([&uInput](const Student& student) {
-        return (IsVisiable(student) && uInput == student.GetScore()); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&uInput](const student_t& student) {
+        return (IsVisiable(student) && std::get<attr_e::attr_score>(student) == uInput); }));
 }
 
 void View::FilterByBirthday() const
 {
     std::string strInput;
 
-    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const Student& student) {
-        return (IsVisiable(student) && student.GetBirthday() == strInput); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&strInput](const student_t& student) {
+        return (IsVisiable(student) && std::get<attr_e::attr_birthday>(student) == strInput); }));
 }
 
 void View::FilterBySex() const
 {
     unsigned int uInput;
 
-    ViewStudents(Manager::GetInstance().GetStudents([&uInput](const Student& student) {
-        return (IsVisiable(student) && uInput == student.GetSex()); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&uInput](const student_t& student) {
+        return (IsVisiable(student) && std::get<attr_e::attr_sex>(student) == uInput); }));
 }
 
 void View::FilterByRight() const
 {
     bool bInput;
 
-    ViewStudents(Manager::GetInstance().GetStudents([&bInput](const Student& student) { return bInput == IsVisiable(student); }));
+    ViewStudents(Manager::GetInstance().GetStudents([&bInput](const student_t& student) { return bInput == IsVisiable(student); }));
 }
 
-void View::SortByAccount() const
-{
-    _SortView([](const auto& a, const auto& b) { return (a.CompareAccount(b.GetAccount()) < 0); });
-}
-
-void View::SortByName() const
-{
-    _SortView([](const auto& a, const auto& b) { return (a.GetName() < b.GetName()); });
-}
-
-void View::SortByScore() const
-{
-    _SortView([](const auto& a, const auto& b) { return (a.GetScore() < b.GetScore()); });
-}
-
-void View::SortByBirthday() const
-{
-    _SortView([](const auto& a, const auto& b) { return (a.GetBirthday() < b.GetBirthday()); });
-}
-
-void View::ViewStudents(const std::vector<Student>& students) const
+void View::ViewStudents(const std::vector<student_t>& students) const
 {
     OutputText<true>("There is student view !");
 }
@@ -226,7 +218,7 @@ unsigned int View::_AcceptCommand(unsigned int nMax) const
 
     char key = '0';
 
-    for (std::cout << "0\b"; ;)
+    for (std::cout << key << '\b'; ; std::cout << key << '\b')
     {
         char x = GetChar();
         if (g_cReturn == x)
@@ -242,8 +234,6 @@ unsigned int View::_AcceptCommand(unsigned int nMax) const
             else
                 continue;
         }
-
-        std::cout << key << '\b';
     }
 
     ClearScreen();

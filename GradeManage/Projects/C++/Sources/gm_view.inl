@@ -78,11 +78,6 @@ inline void ClearScreen()
 #endif
 }
 
-inline std::string InputAccount()
-{
-    return { };
-}
-
 inline void ShowWelcome() {
     std::cout << "********************************************************************************" << std::endl;
     std::cout << "*                                                                              *" << std::endl;
@@ -107,4 +102,3 @@ inline void ShowEnd() {
 // template<> inline int _CompareString<true>(const std::string& a, const std::string& b) { return a.compare(b); }
 // template<> inline int _CompareString<false>(const std::string& a, const std::string& b) { return (_str_icmp(a.c_str(), b.c_str())); }
 
-inline bool IsVisiable(const Student& student) { return (Manager::GetInstance().GetRole() == Manager::Role::role_admin || student.IsPublic()); }

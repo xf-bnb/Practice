@@ -56,65 +56,64 @@ inline int _str_icmp(const char* _str1, const char* _str2)
     return (_v1 - _v2);
 }
 
-int User::CompareAccount(const string_type& strAccount) const
+int CompareString(const string_t& a, const string_t& b)
 {
-    return (_str_icmp(account.c_str(), strAccount.c_str()));
+    return (_str_icmp(a.c_str(), b.c_str()));
 }
 
-User::string_type Administrator::ToString(const Administrator& admin)
+string_t AdminToString(const admin_t& admin)
 {
-    return (_string_encode(admin.GetAccount() + ',' + (_string_encode(admin.GetAccount()))));
+    return (_string_encode(std::get<attr_account>(admin) + ',' + (_string_encode(std::get<attr_password>(admin)))));
 }
 
-Administrator Administrator::FromString(const User::string_type& text)
+admin_t StringToAdmin(const string_t& text)
 {
-    string_type str = _string_decode(text);
+    string_t str = _string_decode(text);
 
     size_t pos = str.find(',', 0);
-    if (string_type::npos == pos)
+    if (string_t::npos == pos)
         throw std::runtime_error("parse admin data error !");
 
     return { str.substr(0, pos), _string_decode(str.substr(pos + 1)) };
 }
 
-User::string_type Student::ToString(const Student& student)
+string_t StudentToString(const student_t& student)
 {
     std::ostringstream oss;
-    oss << student.GetAccount()
-        << ',' << (_string_encode(student.GetPassword()))
-        << ',' << student.GetName()
-        << ',' << student.GetBirthday()
-        << ',' << student.GetScore()
-        << ',' << student.GetSex()
-        << ',' << student.GetRight();
+    oss << std::get<attr_account>(student)
+        << ',' << (_string_encode(std::get<attr_password>(student)))
+        << ',' << std::get<attr_name>(student)
+        << ',' << std::get<attr_birthday>(student)
+        << ',' << std::get<attr_score>(student)
+        << ',' << std::get<attr_sex>(student)
+        << ',' << std::get<attr_right>(student);
 
     return (_string_encode(oss.str()));
 }
 
-Student Student::FromString(const User::string_type& text)
+student_t StringToStudent(const string_t& text)
 {
-    string_type str = _string_decode(text);
-    
-    string_type strs[_Attribute::attr_max];
+    string_t str = _string_decode(text);
+    string_t strs[attr_e::attr_max];
 
     size_t start = 0;
-    for (unsigned int i = 0; i < (_Attribute::attr_max - 1); ++i)
+    for (unsigned int i = 0; i < (attr_e::attr_max - 1); ++i)
     {
         size_t pos = str.find(',', start);
-        if (string_type::npos == pos)
+        if (string_t::npos == pos)
             throw std::runtime_error("parse student data error !");
 
         strs[i] = str.substr(start, pos - start);
         start = pos + 1;
     }
 
-    strs[_Attribute::attr_max - 1] = str.substr(start);
+    strs[attr_e::attr_max - 1] = str.substr(start);
 
-    return { strs[_Attribute::attr_account],
-             _string_decode(strs[_Attribute::attr_password]),
-             strs[_Attribute::attr_name],
-             strs[_Attribute::attr_birthday],
-             std::stoul(strs[_Attribute::attr_score]),
-             std::stoul(strs[_Attribute::attr_sex]),
-             std::stoul(strs[_Attribute::attr_right]) };
+    return { strs[attr_e::attr_account],
+             _string_decode(strs[attr_e::attr_password]),
+             strs[attr_e::attr_name],
+             strs[attr_e::attr_birthday],
+             std::stoul(strs[attr_e::attr_score]),
+             std::stoul(strs[attr_e::attr_sex]),
+             std::stoul(strs[attr_e::attr_right]) };
 }
